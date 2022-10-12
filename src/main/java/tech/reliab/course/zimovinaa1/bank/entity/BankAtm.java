@@ -3,56 +3,39 @@ package tech.reliab.course.zimovinaa1.bank.entity;
 import org.jetbrains.annotations.NotNull;
 import tech.reliab.course.zimovinaa1.bank.service.AtmService;
 
-public class BankAtm implements AtmService {
+public class BankAtm{
+    private BankOffice office;
     private int id;
     private String name;
-    private String address;
     private String status;
-    private BankOffice bankOffice;
-    private Bank bank;
-    private String AtmLocation;
-    private Employee engineer;
+    private String address;
+    private int employeeId;
     private Boolean canGiveMoney;
-    private int count_money;
-    private int count_service;
+    private Boolean canDepositMoney;
+    private int money;
+    private int cost;
 
-    public BankAtm(String name, int id, @NotNull Bank bank, @NotNull BankOffice bankOffice, @NotNull Employee en)
+    public BankAtm(BankOffice office, int id, String name, String status, int employeeId,
+                   Boolean canGiveMoney, Boolean canDepositMoney, int money, int cost)
     {
-        this.name = name;
-        this.id = id;
-        this.address=bankOffice.getAddress();
-        this.status = "Работает";
-        this.bank = bank;
-        this.bankOffice=bankOffice;
-        this.AtmLocation=bankOffice.getAddress();
-        this.engineer=en;
-        this.canGiveMoney=true;
-        this.count_money=bank.getMoney();
-        this.count_service=125000;
-        this.bankOffice.addAtm(1);
-        this.bank.addCountAtm(1);
+        setOffice(office);
+        setId(id);
+        setName(name);
+        setStatus(status);
+        setEmployeeId(employeeId);
+        setAddress();
+        setCanGiveMoney(canGiveMoney);
+        setCanDepositMoney(canDepositMoney);
+        setMoney(money);
+        setCost(cost);
     }
 
-    @Override
-    public void collectionToBank()
-    {
-        this.bank.addMoney(this.count_money);
+    public BankOffice getOffice() {
+        return office;
     }
-    @Override
-    public String toString() {
-        return "BankAtm{" +
-                "\nid=" + id +
-                ",\n name='" + name + '\'' +
-                ",\n address='" + address + '\'' +
-                ",\n status='" + status + '\'' +
-                ",\n bankOffice=" + bankOffice +
-                ",\n bank=" + bank +
-                ",\n AtmLocation='" + AtmLocation + '\'' +
-                ",\n engineer=" + engineer +
-                ",\n canGiveMoney=" + canGiveMoney +
-                ",\n count_money=" + count_money +
-                ",\n count_service=" + count_service +
-                '}';
+
+    public void setOffice(BankOffice office) {
+        this.office = office;
     }
 
     public int getId() {
@@ -71,14 +54,6 @@ public class BankAtm implements AtmService {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -87,36 +62,20 @@ public class BankAtm implements AtmService {
         this.status = status;
     }
 
-    public int getBankOffice() {
-        return bankOffice.getId();
+    public String getAddress() {
+        return address;
     }
 
-    public void setBankOffice(BankOffice bankOffice) {
-        this.bankOffice = bankOffice;
+    public void setAddress() {
+        this.address = office.getAddress();
     }
 
-    public int getBank() {
-        return bank.getId();
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setBank(Bank bank) {
-        this.bank = bank;
-    }
-
-    public String getAtmLocation() {
-        return AtmLocation;
-    }
-
-    public void setAtmLocation(String atmLocation) {
-        AtmLocation = atmLocation;
-    }
-
-    public int getEngineer() {
-        return engineer.getId();
-    }
-
-    public void setEngineer(Employee engineer) {
-        this.engineer = engineer;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public Boolean getCanGiveMoney() {
@@ -127,19 +86,42 @@ public class BankAtm implements AtmService {
         this.canGiveMoney = canGiveMoney;
     }
 
-    public int getCount_money() {
-        return count_money;
+    public Boolean getCanDepositMoney() {
+        return canDepositMoney;
     }
 
-    public void setCount_money(int count_money) {
-        this.count_money = count_money;
+    public void setCanDepositMoney(Boolean canDepositMoney) {
+        this.canDepositMoney = canDepositMoney;
     }
 
-    public int getCount_service() {
-        return count_service;
+    public int getMoney() {
+        return money;
     }
 
-    public void setCount_service(int count_service) {
-        this.count_service = count_service;
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    @Override
+    public String toString() {
+        return ("Atm{"+
+                "id=" + getId() +
+                ", name='" + getName() +
+                ", status='" + getStatus() +
+                ", address='" + getAddress() +
+                ", employeeId=" + getEmployeeId() +
+                ", canGiveMoney=" + getCanGiveMoney() +
+                ", canDepositMoney=" + getCanDepositMoney() +
+                ", money=" + getMoney() +
+                ", cost=" + getCost() + "}"
+        );
     }
 }

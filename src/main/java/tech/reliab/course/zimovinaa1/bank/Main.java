@@ -1,75 +1,71 @@
 package tech.reliab.course.zimovinaa1.bank;
 
 import tech.reliab.course.zimovinaa1.bank.entity.*;
-import tech.reliab.course.zimovinaa1.bank.entity.detail.FIO;
+import tech.reliab.course.zimovinaa1.bank.entity.detail.Fcs;
+import tech.reliab.course.zimovinaa1.bank.service.*;
+import tech.reliab.course.zimovinaa1.bank.service.impl.*;
+
+import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("***Bank INFO***");
-        Bank bank = new Bank("TinkoFF Bank", 1002);
-        System.out.println("*********");
-        System.out.println(bank);
+        BankService bankImpl = new BankImpl();
+        Bank bank = bankImpl.createBank("TinkoFF Bank", 1002);
+        bankImpl.readBank(bank);
+        bankImpl.updateBankName(bank,"SberBank");
+        bankImpl.readBank(bank);
 
-        System.out.println("\n***BankOffice INFO***\n");
-        BankOffice office = new BankOffice("TinkoFF Office #1",102, bank, "Белгород, ул.Костюкова д.46");
-        System.out.println(office);
-        System.out.println("*********");
+        BankOfficeService bankOfficeImpl = new BankOfficeImpl();
+        BankOffice office = bankOfficeImpl.createOffice(bank, 12, "SberOffice #1",
+                "Белгород, ул.Костюкова д.43", "Не работает", true,true,false,
+                false,  120000);
+        bankOfficeImpl.readOffice(office);
+        bankOfficeImpl.updateOfficeStatusOfSetATM(office, false);
+        bankOfficeImpl.updateOfficeStatusOfWorking(office,"Работает");
+        bankOfficeImpl.readOffice(office);
 
         System.out.println("\n***Employee INFO***\n");
-        FIO fio = new FIO("Andrey", "Zimovin", "Alexandrovich", "02-10-2001");
-        Employee employee = new Employee(23,bank, fio,"Студент" , true,
-                office, false, 2000.0f);
-        System.out.println("id:"+employee.getId());
-        System.out.println(employee.getFio());
-        System.out.println("Должность:"+employee.getPost());
-        System.out.println("Зарплата: "+employee.getSalary());
-        System.out.println("Может давать кредит: "+employee.getCanGiveCredit());
-        System.out.println("Может работать дистанционно:"+employee.getWorkDistance());
-        System.out.println("*********");
+        EmployeeService empImpl = new EmployeeImpl();
+        Employee employee = empImpl.createEmployee(bank, office, 1001, "Andrey", "Zimovin",
+                "Alexandrovich", new Date(), "Admin", true, false, 20000);
+        empImpl.readEmployee(employee);
+        empImpl.updateEmployeeDistant(employee,false);
+        empImpl.updateEmployeeGiving(employee,true);
+        empImpl.readEmployee(employee);
 
-        System.out.println("\n***BankATM INFO***\n");
-        BankAtm atm = new BankAtm("Термина #1", 9123,bank, office,employee);
-        System.out.println("ID: "+atm.getId());
-        System.out.println("Имя: "+atm.getName());
-        System.out.println("Адрес: "+atm.getAddress());
-        System.out.println("Статус: "+atm.getStatus());
-        System.out.println("Местоположение: "+atm.getAtmLocation());
-        System.out.println("ID офиса: "+atm.getBankOffice());
-        System.out.println("ID банка: "+atm.getBank());
-        System.out.println("ID инженера: "+atm.getEngineer());
-        System.out.println("*********");
+        System.out.println("\n***ATM INFO***\n");
+        AtmService atmImpl = new AtmImpl();
+        BankAtm atm = atmImpl.createAtm(bank, office, 203, "BankAtm 103-45", "Работает", 23,
+                true, true, 200100, 30000);
+        atmImpl.readATM(atm);
+        atmImpl.updateATMMoney(atm, bank, 40000);
+        atmImpl.updateATMStatusOfDeposit(atm, false);
+        atmImpl.updateATMStatusOfGiving(atm, false);
+        atmImpl.readATM(atm);
 
         System.out.println("\n***USER INFO***\n");
-        FIO fio2 = new FIO("Andrey", "Zimovin", "Alexandrovich", "02-10-2001");
-        User client = new User(1000, fio2, "БГТУ им. В.Г.Шухова", 2000.0f,bank);
-        System.out.println("id:"+client.getIdClient());
-        System.out.println("Личные данные:"+client.getFio());
-        System.out.println("Место работы:"+client.getPlaceWork());
-        System.out.println("Рейтинг:"+client.getRate());
-        System.out.println("Зарплата:"+client.getSalary());
-        System.out.println("*********");
+        UserService userImpl = new UserImpl();
+        User user = userImpl.createUser(501, "Andrey", "Zimovin", "Alexandrovich",
+                new Date(), "БГТУ им. В.Г. Шухова");
+        userImpl.readUser(user);
+        userImpl.updateUserWork(user, "БелГУ");
+        userImpl.readUser(user);
 
         System.out.println("\n***PaymentAccount INFO***\n");
-        PaymentAccount paymentAccount = new PaymentAccount(123, client, bank.getName());
-        System.out.println("ID_payment:"+paymentAccount.getIdPayment());
-        System.out.println("Клиент:"+paymentAccount.getUser());
-        System.out.println("Банк:"+paymentAccount.getName_bank());
-        System.out.println("Баланс:"+paymentAccount.getSum());
-        System.out.println("*********");
+        PaymentAccountService payImpl = new PaymentAccountImpl();
+        PaymentAccount paymentAccount = payImpl.createPayAcc(bank, user, 1002);
+        payImpl.readPayAcc(paymentAccount);
+        payImpl.updateMoney(paymentAccount,10000);
+        payImpl.readPayAcc(paymentAccount);
 
-        System.out.println("\n***PaymentAccount INFO***\n");
-        CreditAccount creditAccount = new CreditAccount(client.getIdClient(), client,bank, "29-09-2022",
-                "29-09-2023",12,120000.0f, 12000.80f, 12,employee);
-        System.out.println("ID_credit:"+creditAccount.getIdCreditAccount());
-        System.out.println("Клиент:"+creditAccount.getUser());
-        System.out.println("Дата начала кредита:"+creditAccount.getDateStartCredit());
-        System.out.println("Дата окончания кредита:"+creditAccount.getDateEndCredit());
-        System.out.println("Сумма кредита:"+creditAccount.getSum_credit());
-        System.out.println("Банк:"+creditAccount.getNameBank());
-        System.out.println("Месячный платеж:"+creditAccount.getMonth_pay());
-        System.out.println("Процент(%):"+creditAccount.getPercentage());
-        System.out.println("Кол-во месяцев:"+creditAccount.getCountMonthsCredit());
-        System.out.println("Работник банка:"+creditAccount.getEmployee());
-        System.out.println("*********");
+        System.out.println("\n***CreditAccount INFO***\n");
+        CrediteAccountService creditImpl = new CrediteAccountImpl();
+        CreditAccount creditAccount = creditImpl.createCreditAcc(bank,user, employee,paymentAccount, 1003, new Date(),
+                new Date(), 46, 500000, 23000);
+        creditImpl.readCreditAcc(creditAccount);
+        creditImpl.updateCreditPayAcc(creditAccount, paymentAccount);
+        creditImpl.readCreditAcc(creditAccount);
+
     }
 }

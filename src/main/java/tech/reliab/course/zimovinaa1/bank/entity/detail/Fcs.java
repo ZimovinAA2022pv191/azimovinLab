@@ -1,15 +1,13 @@
 package tech.reliab.course.zimovinaa1.bank.entity.detail;
 
-import java.util.Date;
-
-public class FIO {
+public class Fcs {
     private String firstName;
     private String lastName;
     private String patronymic;
 
     private String date_birth; //yyyy-mm-dd
 
-    public FIO(String firstName, String lastName, String patronymic, String date)
+    public Fcs(String firstName, String lastName, String patronymic, String date)
     {
         this.firstName=firstName;
         this.lastName=lastName;

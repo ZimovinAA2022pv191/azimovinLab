@@ -1,11 +1,15 @@
 package tech.reliab.course.zimovinaa1.bank.service;
 
 import tech.reliab.course.zimovinaa1.bank.entity.Employee;
+import tech.reliab.course.zimovinaa1.bank.entity.User;
+
+import java.util.Date;
 
 public interface UserService {
-    void leaveBank();
-    void calc_rate();
-    void addPaymentAccount();
-    void addCreditAccount(String date_start, String date_end, int count_mount, float sum_credit, float month_pay,
-                          int percentage, Employee employee);
+    User createUser(Integer id, String firstName, String lastName, String patronymic,
+                    Date dateBirth, String workPlace);
+
+    void readUser(User user);
+
+    void updateUserWork(User user, String workPlace);
 }

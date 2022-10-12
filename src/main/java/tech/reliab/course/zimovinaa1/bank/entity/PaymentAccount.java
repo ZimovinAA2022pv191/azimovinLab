@@ -1,63 +1,80 @@
 package tech.reliab.course.zimovinaa1.bank.entity;
 
-import tech.reliab.course.zimovinaa1.bank.entity.detail.FIO;
-import tech.reliab.course.zimovinaa1.bank.service.PaymentAccountService;
 
-public class PaymentAccount implements PaymentAccountService {
-    private int id_payment;
+public class PaymentAccount{
     private User user;
-    private String name_bank;
-    private int sum;
+    private Bank bank;
+    private int id;
+    private String userName;
+    private String bankName;
+    private int money;
 
-    public PaymentAccount(int id_payment, User user, String name_bank)
+
+    public PaymentAccount(Bank bank, User user, int id)
     {
-        this.id_payment = id_payment;
-        this.user = user;
-        this.name_bank = name_bank;
-        this.sum = 0;
+        this.setUser(user);
+        this.setBank(bank);
+        this.setIdPayAcc(id);
+        this.setBankName();
+        this.setUserName();
+        this.setMoney(0);
     }
 
-
-    @Override
-    public String toString()
-    {
-        return "PaymentAccount{" +
-                "id_payment=" + id_payment +
-                ", user=" + user +
-                ", name_bank='" + name_bank + '\'' +
-                ", sum=" + sum +
-                '}';
-    }
-
-    public int getIdPayment() {
-        return id_payment;
-    }
-
-    public void setIdPayment(int id_payment) {
-        this.id_payment = id_payment;
-    }
-
-    public FIO getUser() {
-        return this.user.getFio();
+    public User getUser() {
+        return user;
     }
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    public String getName_bank() {
-        return name_bank;
+    public Bank getBank() {
+        return bank;
     }
 
-    public void setNameBank(String name_bank) {
-        this.name_bank = name_bank;
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 
-    public int getSum() {
-        return sum;
+    public int getIdPayAcc() {
+        return id;
     }
 
-    public void setSum(int sum) {
-        this.sum = sum;
+    public void setIdPayAcc(int id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName() {
+        this.userName =this.user.getLastName() + this.user.getFirstName() + this.user.getPatronymic();
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName() {
+        this.bankName = this.bank.getName();
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    @Override
+    public String toString() {
+        return "PaymentAccount{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", bankName='" + bankName + '\'' +
+                ", money=" + money +
+                '}';
     }
 }

@@ -1,15 +1,13 @@
 package tech.reliab.course.zimovinaa1.bank.service;
 
+import tech.reliab.course.zimovinaa1.bank.entity.Bank;
+
 public interface BankService {
-    int rnd(int max);
 
-    void calc_percent();
 
-    void addMoney(int x);
+    Bank createBank(String name, int id);
+    public void readBank(Bank bank);
+    public void updateBankName(Bank bank, String name);
 
-    public void addCountOffice(int i);
-    public void addCountAtm(int i);
-    public void addCountClient(int i);
-    public void addCountEmployee(int i);
 
 }

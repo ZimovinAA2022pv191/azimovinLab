@@ -1,135 +1,163 @@
 package tech.reliab.course.zimovinaa1.bank.entity;
 
-import tech.reliab.course.zimovinaa1.bank.entity.detail.FIO;
+
 import tech.reliab.course.zimovinaa1.bank.service.CrediteAccountService;
 
 import java.util.Date;
 
-public class CreditAccount implements CrediteAccountService {
-    private int id_credit_account;
+public class CreditAccount{
     private User user;
-    private String name_bank;
-    private String date_start_credit, date_end_credit; //yyyy-mm-dd
-    private int count_months_credit;
-    private float sum_credit;
-    private float month_pay;
-    private int percentage;
+    private Bank bank;
     private Employee employee;
     private PaymentAccount paymentAccount;
-    private Bank bank;
+    private int id;
+    private String userName;
+    private String bankName;
+    private Date startDate;
+    private Date endDate;
+    private int countMonth;
+    private int creditSum;
+    private int interestRate;
+    private int monthPay;
+    private String employeeName;
+    private int paymentAccountId;
 
-    public CreditAccount(int id_credit_account, User user, Bank bank, String date_start_credit,
-                         String date_end_credit, int count_months_credit, float sum_credit, float month_pay,
-                         int percentage, Employee employee)
+    public CreditAccount(Bank bank, User user, Employee employee, PaymentAccount paymentAccount,
+                         int id, Date startDate, Date endDate, int countMonth, int creditSum, int monthPay)
     {
-        this.id_credit_account = id_credit_account;
-        this.user = user;
-        this.bank=bank;
-        this.name_bank = this.bank.getName();
-        this.date_start_credit = date_start_credit;
-        this.date_end_credit = date_end_credit;
-        this.count_months_credit = count_months_credit;
-        this.sum_credit = sum_credit;
-        this.month_pay = month_pay;
-        this.percentage = percentage;
-        this.employee = employee;
-        this.paymentAccount = new PaymentAccount(id_credit_account+1,user,this.bank.getName());
+        this.setBank(bank);
+        this.setUser(user);
+        this.setEmployee(employee);
+        this.setPaymentAccount(paymentAccount);
+        this.setId(id);
+        this.setUserName();
+        this.setBankName();
+        this.setStartDate(startDate);
+        this.setEndDate(endDate);
+        this.setCountMonth(countMonth);
+        this.setCreditSum(creditSum);
+        this.setMonthPay(monthPay);
     }
 
-    @Override
-    public boolean isOpenCredit()
-    {
-        if((this.sum_credit>this.paymentAccount.getSum()) && !this.employee.getCanGiveCredit())
-        {
-            return false;
-        }
-        this.employee.setCanGiveCredit(true);
-        this.count_months_credit=0;
-        return true;
-    }
-
-    public int getIdCreditAccount() {
-        return id_credit_account;
-    }
-
-    public void setIdCreditAccount(int id_credit_account) {
-        this.id_credit_account = id_credit_account;
-    }
-
-    public FIO getUser() {
-        return user.getFio();
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    public FIO getEmployee() {
-        return employee.getFio();
-    }
-
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
 
-    public String getNameBank() {
-        return name_bank;
+    public void setPaymentAccount(PaymentAccount paymentAccount) {
+        this.paymentAccount = paymentAccount;
     }
 
-    public void setNameBank(String name_bank) {
-        this.name_bank = name_bank;
+    public Integer getId() {
+        return id;
     }
 
-    public String getDateStartCredit() {
-        return date_start_credit;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setDateStartCredit(String date_start_credit) {
-        this.date_start_credit = date_start_credit;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getDateEndCredit() {
-        return date_end_credit;
+    public void setUserName() {
+        this.userName = user.getFirstName();
     }
 
-    public void setDateEndCredit(String date_end_credit) {
-        this.date_end_credit = date_end_credit;
+    public String getBankName() {
+        return bankName;
     }
 
-    public int getCountMonthsCredit() {
-        return count_months_credit;
+    public void setBankName() {
+        this.bankName = bank.getName();
     }
 
-    public void setCountMonthsCredit(int count_months_credit) {
-        this.count_months_credit = count_months_credit;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public float getSum_credit() {
-        return sum_credit;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public void setSum_credit(float sum_credit) {
-        this.sum_credit = sum_credit;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public float getMonth_pay() {
-        return month_pay;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
-    public void setMonth_pay(float month_pay) {
-        this.month_pay = month_pay;
+    public Integer getCountMonth() {
+        return countMonth;
     }
 
-    public int getPercentage() {
-        return percentage;
+    public void setCountMonth(Integer countMonth) {
+        this.countMonth = countMonth;
     }
 
-    public void setPercentage(int percentage) {
-        this.percentage = percentage;
+    public int getCreditSum() {
+        return creditSum;
     }
 
-    @Override
-    public void setPay_detail_account(int x) {
-        this.paymentAccount.setSum(x);
+    public void setCreditSum(int creditSum) {
+        this.creditSum = creditSum;
     }
+
+    public int getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate() {
+        this.interestRate = bank.getRate();
+    }
+
+    public int getMonthPay() {
+        return monthPay;
+    }
+
+    public void setMonthPay(int monthPay) {
+        this.monthPay = monthPay;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName() {
+        this.employeeName = employee.getFirsName();
+    }
+
+    public Integer getPaymentAccountId() {
+        return paymentAccountId;
+    }
+
+    public void setPaymentAccountId() {
+        this.paymentAccountId = paymentAccount.getIdPayAcc();
+    }
+
+    public String toString(){
+        return ("CreditAccount{" +
+                "id: " + getId() +
+                        ", userName: " + getUserName() +
+                        ", bankName: " + getBankName() +
+                        ", startDate: " + getStartDate() +
+                        ", endDate: " + getEndDate() +
+                        ", countMonth: " + getCountMonth() +
+                        ", creditSum: " + getCreditSum() +
+                        ", interestRate: " + getInterestRate() +
+                        ", employee: " + getEmployeeName() +
+                        ", interestRate: " + getInterestRate() +
+                        ", monthPay: " + getMonthPay() +
+                        ", paymentAccountId: " + getPaymentAccountId() + "}"
+        );
+    }
+
 }

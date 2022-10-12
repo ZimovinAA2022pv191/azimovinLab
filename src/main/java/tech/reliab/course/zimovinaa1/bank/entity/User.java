@@ -1,139 +1,108 @@
 package tech.reliab.course.zimovinaa1.bank.entity;
 
-import tech.reliab.course.zimovinaa1.bank.entity.detail.FIO;
-import tech.reliab.course.zimovinaa1.bank.service.UserService;
 
-public class User implements UserService {
-    private int id_client;
-    private FIO fio;
-    private String place_work;
-    private float salary;
-    private Bank bank;
-    private CreditAccount credit_account;
-    private PaymentAccount pay_account;
-    private int rate;
+import java.util.Date;
+import java.util.Random;
 
+public class User{
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String patronymic;
+    private Date dateBirth;
+    private String workPlace;
+    private int monthSalary;
+    private int creditRating;
 
-    public User(int id_client, FIO fio, String place_work, float salary, Bank bank) {
-        this.id_client = id_client;
-        this.fio = fio;
-        this.place_work = place_work;
-        this.salary = salary;
-        this.bank = bank;
-        this.credit_account = null;
-        this.pay_account = null;
-        this.bank.addCountClient(1);
-        calc_rate();
+    public User(int id, String firstName, String lastName, String patronymic,Date dateBirth, String workPlace)
+    {
+        this.setUserId(id);
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setPatronymic(patronymic);
+        this.setDateBirth(dateBirth);
+        this.setWorkPlace(workPlace);
+        Random rand = new Random();
+        this.monthSalary = rand.nextInt(1,100000);
+        this.setCreditRating(rand.nextInt(50,100));
+
+    }
+
+    public int getUserId() {
+        return id;
+    }
+
+    public void setUserId(int id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
+    }
+
+    public Date getDateBirth() {
+        return dateBirth;
+    }
+
+    public void setDateBirth(Date dateBirth) {
+        this.dateBirth = dateBirth;
+    }
+
+    public String getWorkPlace() {
+        return workPlace;
+    }
+
+    public void setWorkPlace(String workPlace) {
+        this.workPlace = workPlace;
+    }
+
+    public int getMonthSalary() {
+        return monthSalary;
+    }
+
+    public void setMonthSalary(int monthSalary) {
+        this.monthSalary = monthSalary;
+    }
+
+    public int getCreditRating() {
+        return creditRating;
+    }
+
+    public void setCreditRating(int creditRating) {
+        this.creditRating = creditRating;
     }
 
     @Override
-    public void addPaymentAccount()
-    {
-        this.pay_account = new PaymentAccount(this.id_client+1,this, this.bank.getName());
-    }
-    @Override
-    public void addCreditAccount(String date_start, String date_end, int count_mount, float sum_credit, float month_pay,
-                                 int percentage, Employee employee)
-    {
-        this.credit_account = new CreditAccount(this.id_client+1,this, this.bank,date_start, date_end,
-                count_mount, sum_credit, month_pay, percentage, employee);
-    }
-    @Override
-    public void calc_rate()
-    {
-        if (this.salary<1000)
-        {
-            this.rate=100;
-        }
-        if (this.salary>=1000 || this.salary<=2000)
-        {
-            this.rate=200;
-        }
-        if (this.salary>=2000 || this.salary<=3000)
-        {
-            this.rate=300;
-        }
-        if (this.salary>=3000 || this.salary<=4000)
-        {
-            this.rate=400;
-        }
-        if (this.salary>=4000 || this.salary<=5000)
-        {
-            this.rate=500;
-        }
-        if (this.salary>=5000 || this.salary<=6000)
-        {
-            this.rate=600;
-        }
-        if (this.salary>=6000 || this.salary<=7000)
-        {
-            this.rate=700;
-        }
-        if (this.salary>=7000 || this.salary<=8000)
-        {
-            this.rate=800;
-        }
-        if (this.salary>=8000 || this.salary<=9000)
-        {
-            this.rate=900;
-        }
-        if (this.salary>=9000 || this.salary<=10000)
-        {
-            this.rate=1000;
-        }
-
-    }
-    @Override
-    public void leaveBank()
-    {
-        this.bank=null;
-    }
-    public int getIdClient() {
-        return id_client;
-    }
-
-    public void setIdClient(int id_client) {
-        this.id_client = id_client;
-    }
-
-    public FIO getFio() {
-        return fio;
-    }
-
-    public void setFio(FIO fio) {
-        this.fio = fio;
-    }
-
-    public String getPlaceWork() {
-        return place_work;
-    }
-
-    public void setPlaceWork(String place_work) {
-        this.place_work = place_work;
-    }
-
-    public float getSalary() {
-        return salary;
-    }
-
-    public void setSalary(float salary) {
-        this.salary = salary;
-    }
-
-    public Bank getBank() {
-        return bank;
-    }
-
-    public void setBank(Bank bank) {
-        this.bank = bank;
-    }
-
-
-    public int getRate() {
-        return rate;
-    }
-
-    public void setRate(int rate) {
-        this.rate = rate;
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", dateBirth=" + dateBirth +
+                ", workPlace='" + workPlace + '\'' +
+                ", monthSalary=" + monthSalary +
+                ", creditRating=" + creditRating +
+                '}';
     }
 }
