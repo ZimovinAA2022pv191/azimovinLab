@@ -5,21 +5,22 @@ import tech.reliab.course.zimovinaa1.bank.entity.BankOffice;
 import tech.reliab.course.zimovinaa1.bank.service.BankOfficeService;
 
 public class BankOfficeImpl implements BankOfficeService {
-    public BankOfficeImpl(){}
+    private BankOffice office;
 
     @Override
     public BankOffice createOffice(Bank bank, Integer id, String name, String address, String status,
                                    Boolean canSetAtm, Boolean canTakeCredit, Boolean canGiveMoney,
-                                   Boolean canDepositMoney, int cost) {
+                                   Boolean canDepositMoney, Double cost) {
         bank.setCountOffice(bank.getCountOffice() + 1);
-        int money = bank.getMoney();
-        return new BankOffice(id, name, address, status, canSetAtm, canTakeCredit, canGiveMoney,
+        Double money = bank.getMoney();
+        office = new BankOffice(id, name, address, status, canSetAtm, canTakeCredit, canGiveMoney,
                 canDepositMoney, money, cost);
+       return office;
     }
 
     @Override
-    public void readOffice(BankOffice office) {
-        System.out.println(office);
+    public BankOffice readOffice() {
+        return office;
     }
 
     @Override
@@ -32,5 +33,10 @@ public class BankOfficeImpl implements BankOfficeService {
         office.setCanSetAtm(canSetAtm);
     }
 
-
+    @Override
+    public void delete(BankOffice bankOffice) {
+        if (this.office == bankOffice) {
+            this.office = null;
+        }
+    }
 }

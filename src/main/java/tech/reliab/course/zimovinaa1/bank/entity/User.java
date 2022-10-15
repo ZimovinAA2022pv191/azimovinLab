@@ -1,7 +1,9 @@
 package tech.reliab.course.zimovinaa1.bank.entity;
 
 
+import java.time.LocalTime;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 public class User{
@@ -9,12 +11,12 @@ public class User{
     private String firstName;
     private String lastName;
     private String patronymic;
-    private Date dateBirth;
+    private LocalTime dateBirth;
     private String workPlace;
-    private int monthSalary;
+    private Double monthSalary;
     private int creditRating;
 
-    public User(int id, String firstName, String lastName, String patronymic,Date dateBirth, String workPlace)
+    public User(int id, String firstName, String lastName, String patronymic,LocalTime dateBirth, String workPlace)
     {
         this.setUserId(id);
         this.setFirstName(firstName);
@@ -23,7 +25,7 @@ public class User{
         this.setDateBirth(dateBirth);
         this.setWorkPlace(workPlace);
         Random rand = new Random();
-        this.monthSalary = rand.nextInt(1,100000);
+        this.monthSalary = rand.nextDouble(1,100000);
         this.setCreditRating(rand.nextInt(50,100));
 
     }
@@ -60,11 +62,11 @@ public class User{
         this.patronymic = patronymic;
     }
 
-    public Date getDateBirth() {
+    public LocalTime getDateBirth() {
         return dateBirth;
     }
 
-    public void setDateBirth(Date dateBirth) {
+    public void setDateBirth(LocalTime dateBirth) {
         this.dateBirth = dateBirth;
     }
 
@@ -76,11 +78,11 @@ public class User{
         this.workPlace = workPlace;
     }
 
-    public int getMonthSalary() {
+    public Double getMonthSalary() {
         return monthSalary;
     }
 
-    public void setMonthSalary(int monthSalary) {
+    public void setMonthSalary(Double monthSalary) {
         this.monthSalary = monthSalary;
     }
 

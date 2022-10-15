@@ -5,23 +5,25 @@ import tech.reliab.course.zimovinaa1.bank.entity.BankOffice;
 import tech.reliab.course.zimovinaa1.bank.entity.Employee;
 import tech.reliab.course.zimovinaa1.bank.service.EmployeeService;
 
-import java.util.Date;
+import java.time.LocalTime;
 
 public class EmployeeImpl implements EmployeeService {
-    public EmployeeImpl(){}
+    private Employee emp;
 
     @Override
-    public Employee createEmployee(Bank bank, BankOffice office, int id,
-                                   String firstName, String lastname, String patronymic, Date dateBirth, String post,
-                                   Boolean canWorkDistance, Boolean canGiveCredit, int salary) {
+    public Employee createEmployee(Bank bank, BankOffice office, Integer id,
+                                   String firstName, String lastname, String patronymic, LocalTime dateBirth, String post,
+                                   Boolean canWorkDistance, Boolean canGiveCredit, Double salary) {
         bank.setCountEmployee(bank.getCountEmployee() + 1);
-        return new Employee(bank, office, id, firstName, lastname, patronymic, dateBirth, post,
+        emp = new Employee(bank, office, id, firstName, lastname, patronymic, dateBirth, post,
                 canWorkDistance, canGiveCredit, salary);
+        return emp;
     }
 
     @Override
-    public void readEmployee(Employee employee) {
-        System.out.println(employee);
+    public Employee readEmployee()
+    {
+        return emp;
     }
 
     @Override
@@ -32,6 +34,13 @@ public class EmployeeImpl implements EmployeeService {
     @Override
     public void updateEmployeeGiving(Employee employee, Boolean canGiveCredite) {
         employee.setCanGiveCredite(canGiveCredite);
+    }
+
+    @Override
+    public void delete(Employee emp) {
+        if (this.emp == emp) {
+            this.emp = null;
+        }
     }
 
 }

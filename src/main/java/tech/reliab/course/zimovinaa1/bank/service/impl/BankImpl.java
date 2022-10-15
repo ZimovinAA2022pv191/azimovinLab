@@ -5,22 +5,31 @@ import tech.reliab.course.zimovinaa1.bank.service.BankService;
 
 public class BankImpl implements BankService {
 
-    public BankImpl(){}
+    private Bank bank;
 
     @Override
-    public Bank createBank(String name, int id)
+    public Bank createBank(String name, Integer id)
     {
-        return new Bank(name, id);
+        bank = new Bank(name, id);
+        return bank;
     }
 
     @Override
-    public void readBank(Bank bank) {
-        System.out.println(bank);
+    public Bank readBank()
+    {
+        return bank;
     }
 
     @Override
     public void updateBankName(Bank bank, String name) {
         bank.setName(name);
+    }
+
+    @Override
+    public void delete(Bank bank) {
+        if (this.bank == bank) {
+            this.bank = null;
+        }
     }
 
 }

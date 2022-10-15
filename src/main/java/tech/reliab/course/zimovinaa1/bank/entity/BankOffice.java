@@ -13,11 +13,11 @@ public class BankOffice {
     private Boolean canTakeCredit;
     private Boolean canGiveMoney;
     private Boolean canDepositMoney;
-    private int money;
-    private int cost;
+    private double money;
+    private double cost;
 
     public BankOffice(int id, String name, String address, String status, Boolean canSetAtm,
-                      Boolean canTakeCredit, Boolean canGiveMoney, Boolean canDepositMoney, int money, int cost)
+                      Boolean canTakeCredit, Boolean canGiveMoney, Boolean canDepositMoney, Double money, Double cost)
     {
         this.setId(id);
         this.setName(name);
@@ -76,7 +76,7 @@ public class BankOffice {
         return countAtm;
     }
 
-    public void setCountAtm(Integer countAtm) {
+    public void setCountAtm(int countAtm) {
         this.countAtm = countAtm;
     }
 
@@ -104,19 +104,19 @@ public class BankOffice {
         this.canDepositMoney = canDepositMoney;
     }
 
-    public int getMoney() {
+    public Double getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(Double money) {
         this.money = money;
     }
 
-    public int getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 

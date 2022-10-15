@@ -5,26 +5,27 @@ import tech.reliab.course.zimovinaa1.bank.entity.detail.Fcs;
 import tech.reliab.course.zimovinaa1.bank.service.BankOfficeService;
 import tech.reliab.course.zimovinaa1.bank.service.EmployeeService;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 
 public class Employee{
     private Bank bank;
     private BankOffice bankOffice;
-    private int id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String patronymic;
-    private Date dateBirth;
+    private LocalTime dateBirth;
     private String post;
     private String bankName;
     private Boolean canWorkDistance;
     private Boolean canGiveCredite;
-    private int officeId;
-    private int salary;
+    private Integer officeId;
+    private Double salary;
 
-    public Employee(Bank bank, BankOffice bankOffice, int id, String firstName, String lastName, String patronymic,
-                    Date dateBirth, String post, Boolean canWorkDistance, Boolean canGiveCredite, int salary)
+    public Employee(Bank bank, BankOffice bankOffice, Integer id, String firstName, String lastName, String patronymic,
+                    LocalTime dateBirth, String post, Boolean canWorkDistance, Boolean canGiveCredite, Double salary)
     {
         this.setBank(bank);
         this.setBankOffice(bankOffice);
@@ -107,12 +108,12 @@ public class Employee{
         return this.patronymic;
     }
 
-    public void setDateBirth(Date dateBirth)
+    public void setDateBirth(LocalTime dateBirth)
     {
         this.dateBirth=dateBirth;
     }
 
-    public Date getDateBirth()
+    public LocalTime getDateBirth()
     {
         return this.dateBirth;
     }
@@ -146,12 +147,12 @@ public class Employee{
         return this.canGiveCredite;
     }
 
-    public void setSalary(int salary)
+    public void setSalary(Double salary)
     {
         this.salary=salary;
     }
 
-    public int getSalary()
+    public Double getSalary()
     {
         return this.salary;
     }

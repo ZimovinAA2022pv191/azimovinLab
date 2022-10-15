@@ -7,21 +7,29 @@ import tech.reliab.course.zimovinaa1.bank.service.PaymentAccountService;
 
 public class PaymentAccountImpl implements PaymentAccountService {
 
-    public PaymentAccountImpl(){}
+    private PaymentAccount payAcc;
 
     @Override
     public PaymentAccount createPayAcc(Bank bank, User user, Integer id) {
         bank.setCountClient(bank.getCountClient() + 1);
-        return new PaymentAccount(bank, user, id);
+        payAcc = new PaymentAccount(bank, user, id);
+        return payAcc;
     }
 
     @Override
-    public void readPayAcc(PaymentAccount payAcc) {
-        System.out.println(payAcc);
+    public PaymentAccount readPayAcc() {
+        return payAcc;
     }
 
     @Override
-    public void updateMoney(PaymentAccount payAcc, int money) {
+    public void updateMoney(PaymentAccount payAcc, Double money) {
         payAcc.setMoney(money);
+    }
+
+    @Override
+    public void delete(PaymentAccount payAcc) {
+        if (this.payAcc == payAcc) {
+            this.payAcc = null;
+        }
     }
 }

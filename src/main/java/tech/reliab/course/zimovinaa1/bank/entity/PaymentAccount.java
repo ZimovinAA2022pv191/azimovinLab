@@ -4,20 +4,20 @@ package tech.reliab.course.zimovinaa1.bank.entity;
 public class PaymentAccount{
     private User user;
     private Bank bank;
-    private int id;
+    private Integer id;
     private String userName;
     private String bankName;
-    private int money;
+    private Double money;
 
 
-    public PaymentAccount(Bank bank, User user, int id)
+    public PaymentAccount(Bank bank, User user, Integer id)
     {
         this.setUser(user);
         this.setBank(bank);
         this.setIdPayAcc(id);
         this.setBankName();
         this.setUserName();
-        this.setMoney(0);
+        this.setMoney(0.0);
     }
 
     public User getUser() {
@@ -36,11 +36,11 @@ public class PaymentAccount{
         this.bank = bank;
     }
 
-    public int getIdPayAcc() {
+    public Integer getIdPayAcc() {
         return id;
     }
 
-    public void setIdPayAcc(int id) {
+    public void setIdPayAcc(Integer id) {
         this.id = id;
     }
 
@@ -60,11 +60,11 @@ public class PaymentAccount{
         this.bankName = this.bank.getName();
     }
 
-    public int getMoney() {
+    public Double getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(Double money) {
         this.money = money;
     }
 

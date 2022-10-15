@@ -5,12 +5,15 @@ import tech.reliab.course.zimovinaa1.bank.entity.BankAtm;
 import tech.reliab.course.zimovinaa1.bank.entity.BankOffice;
 
 public interface AtmService {
-    BankAtm createAtm(Bank bank, BankOffice office, Integer id, String name, String status, Integer employeeId,
-                      Boolean canGiveMoney, Boolean canDepositMoney, int money, int cost);
 
-    public void readATM(BankAtm atm);
-    public void updateATMStatusOfWorking(BankAtm atm, String status);
-    public void updateATMStatusOfGiving(BankAtm atm, Boolean canGiveMoney);
-    public void updateATMStatusOfDeposit(BankAtm atm, Boolean canDepositMoney);
-    public boolean updateATMMoney(BankAtm atm, Bank bank, int money);
+    BankAtm createAtm(Bank bank, BankOffice office, Integer id, String name, String status, Integer employeeId,
+                      Boolean canGiveMoney, Boolean canDepositMoney);
+
+    BankAtm readAtm(BankAtm atm);
+    void updateATMStatusOfWorking(BankAtm atm, String status);
+    void updateATMStatusOfGiving(BankAtm atm, Boolean canGiveMoney);
+    void updateATMStatusOfDeposit(BankAtm atm, Boolean canDepositMoney);
+    Boolean updateATMMoney(BankAtm atm, Bank bank, int money);
+
+    void delete(BankAtm bankAtm);
 }

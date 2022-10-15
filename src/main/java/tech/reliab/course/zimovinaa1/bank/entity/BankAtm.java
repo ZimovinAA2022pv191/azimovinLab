@@ -5,18 +5,18 @@ import tech.reliab.course.zimovinaa1.bank.service.AtmService;
 
 public class BankAtm{
     private BankOffice office;
-    private int id;
+    private Integer id;
     private String name;
     private String status;
     private String address;
-    private int employeeId;
+    private Integer employeeId;
     private Boolean canGiveMoney;
     private Boolean canDepositMoney;
-    private int money;
-    private int cost;
+    private Double money;
+    private Double cost;
 
     public BankAtm(BankOffice office, int id, String name, String status, int employeeId,
-                   Boolean canGiveMoney, Boolean canDepositMoney, int money, int cost)
+                   Boolean canGiveMoney, Boolean canDepositMoney, double money, double cost)
     {
         setOffice(office);
         setId(id);
@@ -38,11 +38,11 @@ public class BankAtm{
         this.office = office;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -70,11 +70,11 @@ public class BankAtm{
         this.address = office.getAddress();
     }
 
-    public int getEmployeeId() {
+    public Integer getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -94,19 +94,19 @@ public class BankAtm{
         this.canDepositMoney = canDepositMoney;
     }
 
-    public int getMoney() {
+    public Double getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(double money) {
         this.money = money;
     }
 
-    public int getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 

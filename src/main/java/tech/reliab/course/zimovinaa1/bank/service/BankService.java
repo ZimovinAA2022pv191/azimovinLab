@@ -5,9 +5,10 @@ import tech.reliab.course.zimovinaa1.bank.entity.Bank;
 public interface BankService {
 
 
-    Bank createBank(String name, int id);
-    public void readBank(Bank bank);
-    public void updateBankName(Bank bank, String name);
+    Bank createBank(String name, Integer id);
+    Bank readBank();
+    void updateBankName(Bank bank, String name);
+    void delete(Bank bank);
 
 
 }

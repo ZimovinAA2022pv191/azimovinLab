@@ -3,26 +3,34 @@ package tech.reliab.course.zimovinaa1.bank.service.impl;
 import tech.reliab.course.zimovinaa1.bank.entity.*;
 import tech.reliab.course.zimovinaa1.bank.service.CrediteAccountService;
 
-import java.util.Date;
+import java.time.LocalTime;
 
 public class CrediteAccountImpl implements CrediteAccountService {
-    public CrediteAccountImpl(){}
+    private CreditAccount crediteAcc;
 
     @Override
     public CreditAccount createCreditAcc(Bank bank, User user, Employee employee,
-                                         PaymentAccount paymentAccount, Integer id, Date startDate,
-                                         Date endDate, Integer countMonth, int creditSum, int monthPay) {
-        return new CreditAccount(bank, user, employee, paymentAccount, id, startDate,
+                                         PaymentAccount paymentAccount, Integer id, LocalTime startDate,
+                                         LocalTime endDate, Integer countMonth, Double creditSum, Integer monthPay) {
+        crediteAcc = new CreditAccount(bank, user, employee, paymentAccount, id, startDate,
                 endDate, countMonth, creditSum, monthPay);
+        return crediteAcc;
     }
 
     @Override
-    public void readCreditAcc(CreditAccount creditAcc) {
-        System.out.println(creditAcc);
+    public CreditAccount readCreditAcc() {
+         return crediteAcc;
     }
 
     @Override
     public void updateCreditPayAcc(CreditAccount creditAcc, PaymentAccount payAcc) {
         creditAcc.setPaymentAccount(payAcc);
+    }
+
+    @Override
+    public void delete(CreditAccount creditAccount) {
+        if (this.crediteAcc == creditAccount) {
+            this.crediteAcc = null;
+        }
     }
 }

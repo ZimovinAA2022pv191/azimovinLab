@@ -3,27 +3,28 @@ package tech.reliab.course.zimovinaa1.bank.entity;
 
 import tech.reliab.course.zimovinaa1.bank.service.CrediteAccountService;
 
-import java.util.Date;
+import java.time.LocalTime;
+
 
 public class CreditAccount{
     private User user;
     private Bank bank;
     private Employee employee;
     private PaymentAccount paymentAccount;
-    private int id;
+    private Integer id;
     private String userName;
     private String bankName;
-    private Date startDate;
-    private Date endDate;
-    private int countMonth;
-    private int creditSum;
-    private int interestRate;
+    private LocalTime startDate;
+    private LocalTime endDate;
+    private Integer countMonth;
+    private Double creditSum;
+    private Integer interestRate;
     private int monthPay;
     private String employeeName;
     private int paymentAccountId;
 
     public CreditAccount(Bank bank, User user, Employee employee, PaymentAccount paymentAccount,
-                         int id, Date startDate, Date endDate, int countMonth, int creditSum, int monthPay)
+                         Integer id, LocalTime startDate, LocalTime endDate, Integer countMonth, Double creditSum, Integer monthPay)
     {
         this.setBank(bank);
         this.setUser(user);
@@ -79,19 +80,19 @@ public class CreditAccount{
         this.bankName = bank.getName();
     }
 
-    public Date getStartDate() {
+    public LocalTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalTime startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalTime endDate) {
         this.endDate = endDate;
     }
 
@@ -103,15 +104,15 @@ public class CreditAccount{
         this.countMonth = countMonth;
     }
 
-    public int getCreditSum() {
+    public Double getCreditSum() {
         return creditSum;
     }
 
-    public void setCreditSum(int creditSum) {
+    public void setCreditSum(Double creditSum) {
         this.creditSum = creditSum;
     }
 
-    public int getInterestRate() {
+    public Integer getInterestRate() {
         return interestRate;
     }
 
@@ -119,7 +120,7 @@ public class CreditAccount{
         this.interestRate = bank.getRate();
     }
 
-    public int getMonthPay() {
+    public Integer getMonthPay() {
         return monthPay;
     }
 

@@ -5,22 +5,26 @@ import tech.reliab.course.zimovinaa1.bank.entity.BankAtm;
 import tech.reliab.course.zimovinaa1.bank.entity.BankOffice;
 import tech.reliab.course.zimovinaa1.bank.service.AtmService;
 
+import java.util.Random;
+
 public class AtmImpl implements AtmService {
 
-    public AtmImpl() {
-    }
+    private BankAtm atm;
 
     @Override
     public BankAtm createAtm(Bank bank, BankOffice office, Integer id, String name, String status, Integer employeeId,
-                             Boolean canGiveMoney, Boolean canDepositMoney, int money, int cost)
+                             Boolean canGiveMoney, Boolean canDepositMoney)
     {
         bank.setCountAtm(bank.getCountAtm() + 1);
-        return new BankAtm(office, id, name, status, employeeId, canGiveMoney, canDepositMoney, money, cost);
+        Random random = new Random();
+        atm = new BankAtm(office, id, name, status, employeeId, canGiveMoney, canDepositMoney, bank.getMoney(),
+                random.nextDouble(1000.0, 3000.0));
+        return atm;
     }
 
     @Override
-    public void readATM(BankAtm atm) {
-        System.out.println(atm);
+    public BankAtm readAtm(BankAtm atm) {
+        return atm;
     }
 
     @Override
@@ -39,11 +43,18 @@ public class AtmImpl implements AtmService {
     }
 
     @Override
-    public boolean updateATMMoney(BankAtm atm, Bank bank, int money) {
+    public Boolean updateATMMoney(BankAtm atm, Bank bank, int money) {
         if (bank.getMoney() > money){
             atm.setMoney(money);
             return true;
         }
         else return false;
+    }
+
+    @Override
+    public void delete(BankAtm bankAtm) {
+        if (this.atm == bankAtm) {
+            this.atm = null;
+        }
     }
 }

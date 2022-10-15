@@ -7,7 +7,9 @@ import tech.reliab.course.zimovinaa1.bank.entity.User;
 public interface PaymentAccountService {
     PaymentAccount createPayAcc(Bank bank, User user, Integer id);
 
-    void readPayAcc(PaymentAccount payAcc);
+    PaymentAccount readPayAcc();
 
-    void updateMoney(PaymentAccount payAcc, int money);
+    void updateMoney(PaymentAccount payAcc, Double money);
+
+    void delete(PaymentAccount payAcc);
 }
