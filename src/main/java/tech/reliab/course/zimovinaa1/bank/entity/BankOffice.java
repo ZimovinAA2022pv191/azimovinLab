@@ -3,7 +3,12 @@ package tech.reliab.course.zimovinaa1.bank.entity;
 import org.jetbrains.annotations.NotNull;
 import tech.reliab.course.zimovinaa1.bank.service.BankOfficeService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class BankOffice {
+
+    private Bank bank;
     private Integer id;
     private String name;
     private String address;
@@ -16,9 +21,12 @@ public class BankOffice {
     private double money;
     private double cost;
 
-    public BankOffice(int id, String name, String address, String status, Boolean canSetAtm,
+    private Map<Integer, Employee> employeeMap = new HashMap<>();
+
+    public BankOffice(Bank bank, int id, String name, String address, String status, Boolean canSetAtm,
                       Boolean canTakeCredit, Boolean canGiveMoney, Boolean canDepositMoney, Double money, Double cost)
     {
+        this.bank = bank;
         this.setId(id);
         this.setName(name);
         this.setAddress(address);
@@ -30,6 +38,16 @@ public class BankOffice {
         this.setCanGiveMoney(canGiveMoney);
         this.setMoney(money);
         this.setCost(cost);
+    }
+
+    public void delete_employer(int id){
+        this.bank.setCountEmployee(this.bank.getCountEmployee()-1);
+        this.employeeMap.remove(id);
+    }
+
+    public void addEmployer(int id, Employee emp){
+        this.bank.setCountEmployee(this.bank.getCountEmployee()+1);
+        this.employeeMap.put(id, emp);
     }
 
     public Integer getId() {

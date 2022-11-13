@@ -13,7 +13,7 @@ public class BankOfficeImpl implements BankOfficeService {
                                    Boolean canDepositMoney, Double cost) {
         bank.setCountOffice(bank.getCountOffice() + 1);
         Double money = bank.getMoney();
-        office = new BankOffice(id, name, address, status, canSetAtm, canTakeCredit, canGiveMoney,
+        office = new BankOffice(bank, id, name, address, status, canSetAtm, canTakeCredit, canGiveMoney,
                 canDepositMoney, money, cost);
        return office;
     }

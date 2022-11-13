@@ -1,6 +1,8 @@
 package tech.reliab.course.zimovinaa1.bank.entity;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Bank {
@@ -14,9 +16,10 @@ public class Bank {
     private Double money;              //кол-во денег не больше 1 000 000
     private Double percentage;         //процентная ставка <=20%
 
+    private final Map<Integer, BankOffice> officeMap = new HashMap<>();
+    private final Map<Integer, PaymentAccount> paymentAccMap = new HashMap<>();
 
-    public Bank(String name, Integer id)
-    {
+    public Bank(String name, Integer id) {
         this.setName(name);
         this.setId(id);
         this.setCountOffice(0);
@@ -101,9 +104,43 @@ public class Bank {
         this.percentage = percentage;
     }
 
+    public void addPaymentAcc(int id, PaymentAccount payAcc){
+        this.paymentAccMap.put(id, payAcc);
+    }
+
+    public void addOfficeBank(int id, BankOffice bankOffice){
+        this.officeMap.put(id, bankOffice);
+        this.countOffice++;
+    }
+
+    public void delPaymentAcc(int id){
+        this.paymentAccMap.remove(id);
+    }
+
+    public void delOfficeBank(int id){
+        this.officeMap.remove(id);
+        this.countOffice--;
+    }
+
+    public BankOffice getBankOffice(int id) {
+        return this.officeMap.get(id);
+    }
+
+    public PaymentAccount getPaymentAcc(int id) {
+        return this.paymentAccMap.get(id);
+    }
+
+    public Map<Integer, BankOffice> getOffices() {
+        return this.officeMap;
+    }
+
+    public Map<Integer, PaymentAccount> getPaymentAccounts() {
+        return this.paymentAccMap;
+    }
+
     @Override
     public String toString() {
-        return "Bank{" +
+        String info = "Bank{" +
                 "name='" + name + '\'' +
                 ", id=" + id +
                 ", countOffice=" + countOffice +
@@ -113,6 +150,16 @@ public class Bank {
                 ", rate=" + rate +
                 ", money=" + money +
                 ", percentage=" + percentage +
-                '}';
+                "\n";
+        for (Map.Entry<Integer, BankOffice> office : this.officeMap.entrySet()) {
+            BankOffice bankValue = office.getValue();
+            info += bankValue.toString();
+        }
+        for (Map.Entry<Integer, PaymentAccount> paymentAcc : this.paymentAccMap.entrySet()) {
+            PaymentAccount paymentValue = paymentAcc.getValue();
+            info += paymentValue.toString();
+        }
+        info += "\n}";
+        return info.toString();
     }
 }

@@ -2,11 +2,9 @@ package tech.reliab.course.zimovinaa1.bank.entity;
 
 
 import java.time.LocalTime;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 
-public class User{
+public class User {
     private int id;
     private String firstName;
     private String lastName;
@@ -16,8 +14,10 @@ public class User{
     private Double monthSalary;
     private int creditRating;
 
-    public User(int id, String firstName, String lastName, String patronymic,LocalTime dateBirth, String workPlace)
-    {
+    private Map<Integer, PaymentAccount> paymentAccMap = new HashMap<>();
+    private Map<Integer, CreditAccount> crediteAccMap = new HashMap<>();
+
+    public User(int id, String firstName, String lastName, String patronymic, LocalTime dateBirth, String workPlace) {
         this.setUserId(id);
         this.setFirstName(firstName);
         this.setLastName(lastName);
@@ -25,8 +25,8 @@ public class User{
         this.setDateBirth(dateBirth);
         this.setWorkPlace(workPlace);
         Random rand = new Random();
-        this.monthSalary = rand.nextDouble(1,100000);
-        this.setCreditRating(rand.nextInt(50,100));
+        this.monthSalary = rand.nextDouble(1, 100000);
+        this.setCreditRating(rand.nextInt(50, 100));
 
     }
 
@@ -94,9 +94,36 @@ public class User{
         this.creditRating = creditRating;
     }
 
+    public void addPaymentAcc(int id, PaymentAccount payAcc) {
+        Bank bank = payAcc.getBank();
+        bank.setCountClient(bank.getCountClient() + 1);
+        bank.addPaymentAcc(id + 12, payAcc);
+        this.paymentAccMap.put(id, payAcc);
+    }
+
+    public void addCreditAcc(int id, CreditAccount creditAcc) {
+        this.crediteAccMap.put(id, creditAcc);
+    }
+
+    public void delPaymentAcc(int id) {
+        this.paymentAccMap.remove(id);
+    }
+
+    public void delCreditAcc(int id) {
+        this.crediteAccMap.remove(id);
+    }
+
+    public PaymentAccount getPaymentAcc(int id) {
+        return this.paymentAccMap.get(id);
+    }
+
+    public CreditAccount getCreditAcc(int id) {
+        return this.crediteAccMap.get(id);
+    }
+
     @Override
     public String toString() {
-        return "User{" +
+        String info = "User{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -105,6 +132,18 @@ public class User{
                 ", workPlace='" + workPlace + '\'' +
                 ", monthSalary=" + monthSalary +
                 ", creditRating=" + creditRating +
-                '}';
+                "\n";
+
+        for (Map.Entry<Integer, PaymentAccount> payAcc: this.paymentAccMap.entrySet()){
+            PaymentAccount payValue = payAcc.getValue();
+            info+=payValue.toString();
+        }
+
+        for (Map.Entry<Integer, CreditAccount> creditAcc: this.crediteAccMap.entrySet()){
+            CreditAccount creditValue = creditAcc.getValue();
+            info+=creditValue.toString();
+        }
+        info+="\n}";
+        return info.toString();
     }
 }
