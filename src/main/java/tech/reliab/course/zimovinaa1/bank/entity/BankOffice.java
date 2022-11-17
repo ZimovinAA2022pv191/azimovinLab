@@ -140,7 +140,7 @@ public class BankOffice {
 
     @Override
     public String toString() {
-        return "BankOffice{" +
+        String info = "BankOffice{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
@@ -152,6 +152,12 @@ public class BankOffice {
                 ", canDepositMoney=" + canDepositMoney +
                 ", money=" + money +
                 ", cost=" + cost +
-                '}';
+                '}' + '\n';
+
+        for (Map.Entry<Integer, Employee> employee : this.employeeMap.entrySet()) {
+            Employee employeeValue = employee.getValue();
+            info += employeeValue + "\n";
+        }
+        return info;
     }
 }
