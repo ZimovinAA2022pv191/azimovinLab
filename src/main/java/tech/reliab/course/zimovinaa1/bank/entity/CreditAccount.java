@@ -3,6 +3,7 @@ package tech.reliab.course.zimovinaa1.bank.entity;
 
 import tech.reliab.course.zimovinaa1.bank.service.CrediteAccountService;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 
@@ -14,8 +15,8 @@ public class CreditAccount{
     private Integer id;
     private String userName;
     private String bankName;
-    private LocalTime startDate;
-    private LocalTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Integer countMonth;
     private Double creditSum;
     private Integer interestRate;
@@ -24,12 +25,14 @@ public class CreditAccount{
     private int paymentAccountId;
 
     public CreditAccount(Bank bank, User user, Employee employee, PaymentAccount paymentAccount,
-                         Integer id, LocalTime startDate, LocalTime endDate, Integer countMonth, Double creditSum, Integer monthPay)
+                         Integer id, LocalDate startDate, LocalDate endDate, Integer countMonth, Double creditSum,
+                         Integer monthPay)
     {
         this.setBank(bank);
         this.setUser(user);
         this.setEmployee(employee);
         this.setPaymentAccount(paymentAccount);
+        this.setPaymentAccountId();
         this.setId(id);
         this.setUserName();
         this.setBankName();
@@ -38,6 +41,7 @@ public class CreditAccount{
         this.setCountMonth(countMonth);
         this.setCreditSum(creditSum);
         this.setMonthPay(monthPay);
+        this.setInterestRate();
     }
 
     public void setBank(Bank bank) {
@@ -80,19 +84,19 @@ public class CreditAccount{
         this.bankName = bank.getName();
     }
 
-    public LocalTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public LocalTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalTime endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -154,7 +158,7 @@ public class CreditAccount{
                         ", countMonth: " + getCountMonth() +
                         ", creditSum: " + getCreditSum() +
                         ", interestRate: " + getInterestRate() +
-                        ", employee: " + getEmployeeName() +
+                        ", employee: " + this.employee.getId() +
                         ", interestRate: " + getInterestRate() +
                         ", monthPay: " + getMonthPay() +
                         ", paymentAccountId: " + getPaymentAccountId() + "}"

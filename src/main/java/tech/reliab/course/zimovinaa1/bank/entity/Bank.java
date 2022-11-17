@@ -17,7 +17,7 @@ public class Bank {
     private Double percentage;         //процентная ставка <=20%
 
     private final Map<Integer, BankOffice> officeMap = new HashMap<>();
-    private final Map<Integer, PaymentAccount> paymentAccMap = new HashMap<>();
+    private final Map<Integer, User> userMap = new HashMap<>();
 
     public Bank(String name, Integer id) {
         this.setName(name);
@@ -104,8 +104,8 @@ public class Bank {
         this.percentage = percentage;
     }
 
-    public void addPaymentAcc(int id, PaymentAccount payAcc){
-        this.paymentAccMap.put(id, payAcc);
+    public void addUserAcc(int id, User user){
+        this.userMap.put(id, user);
     }
 
     public void addOfficeBank(int id, BankOffice bankOffice){
@@ -113,8 +113,8 @@ public class Bank {
         this.countOffice++;
     }
 
-    public void delPaymentAcc(int id){
-        this.paymentAccMap.remove(id);
+    public void delUserAcc(int id){
+        this.userMap.remove(id);
     }
 
     public void delOfficeBank(int id){
@@ -126,16 +126,16 @@ public class Bank {
         return this.officeMap.get(id);
     }
 
-    public PaymentAccount getPaymentAcc(int id) {
-        return this.paymentAccMap.get(id);
+    public User getUserAcc(int id) {
+        return this.userMap.get(id);
     }
 
     public Map<Integer, BankOffice> getOffices() {
         return this.officeMap;
     }
 
-    public Map<Integer, PaymentAccount> getPaymentAccounts() {
-        return this.paymentAccMap;
+    public Map<Integer, User> getUserAccounts() {
+        return this.userMap;
     }
 
     @Override
@@ -153,13 +153,13 @@ public class Bank {
                 "\n";
         for (Map.Entry<Integer, BankOffice> office : this.officeMap.entrySet()) {
             BankOffice bankValue = office.getValue();
-            info += bankValue.toString();
+            info += bankValue + "\n";
         }
-        for (Map.Entry<Integer, PaymentAccount> paymentAcc : this.paymentAccMap.entrySet()) {
-            PaymentAccount paymentValue = paymentAcc.getValue();
-            info += paymentValue.toString();
+        for (Map.Entry<Integer, User> userAcc : this.userMap.entrySet()) {
+            User userValue = userAcc.getValue();
+            info +="\n"+ userValue + "\n";
         }
         info += "\n}";
-        return info.toString();
+        return info;
     }
 }

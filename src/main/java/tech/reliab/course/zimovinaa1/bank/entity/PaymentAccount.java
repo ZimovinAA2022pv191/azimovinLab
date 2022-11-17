@@ -52,6 +52,7 @@ public class PaymentAccount{
         this.userName =this.user.getLastName() + this.user.getFirstName() + this.user.getPatronymic();
     }
 
+
     public String getBankName() {
         return bankName;
     }
@@ -72,7 +73,9 @@ public class PaymentAccount{
     public String toString() {
         return "PaymentAccount{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
+                ", FirstName='" + user.getFirstName() + '\'' +
+                ", LastName='" + user.getLastName() + '\'' +
+                ", Patronymic='" + user.getPatronymic() + '\'' +
                 ", bankName='" + bankName + '\'' +
                 ", money=" + money +
                 '}';

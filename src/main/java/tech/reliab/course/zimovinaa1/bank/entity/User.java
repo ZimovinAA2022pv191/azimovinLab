@@ -94,10 +94,10 @@ public class User {
         this.creditRating = creditRating;
     }
 
-    public void addPaymentAcc(int id, PaymentAccount payAcc) {
+    public void addPaymentAcc(int id, PaymentAccount payAcc, User user) {
         Bank bank = payAcc.getBank();
         bank.setCountClient(bank.getCountClient() + 1);
-        bank.addPaymentAcc(id + 12, payAcc);
+        bank.addUserAcc(id, user);
         this.paymentAccMap.put(id, payAcc);
     }
 
@@ -134,16 +134,16 @@ public class User {
                 ", creditRating=" + creditRating +
                 "\n";
 
-        for (Map.Entry<Integer, PaymentAccount> payAcc: this.paymentAccMap.entrySet()){
+        for (Map.Entry<Integer, PaymentAccount> payAcc : this.paymentAccMap.entrySet()) {
             PaymentAccount payValue = payAcc.getValue();
-            info+=payValue.toString();
+            info += payValue + "\n";
         }
 
-        for (Map.Entry<Integer, CreditAccount> creditAcc: this.crediteAccMap.entrySet()){
+        for (Map.Entry<Integer, CreditAccount> creditAcc : this.crediteAccMap.entrySet()) {
             CreditAccount creditValue = creditAcc.getValue();
-            info+=creditValue.toString();
+            info += creditValue + "\n";
         }
-        info+="\n}";
-        return info.toString();
+        info += "\n}";
+        return info;
     }
 }

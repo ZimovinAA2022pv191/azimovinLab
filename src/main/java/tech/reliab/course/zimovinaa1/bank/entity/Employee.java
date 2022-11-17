@@ -189,11 +189,11 @@ public class Employee {
 
         for (Map.Entry<Integer, BankAtm> atm : this.atmMap.entrySet()) {
             BankAtm value = atm.getValue();
-            info += value.toString();
+            info += value;
         }
         for (Map.Entry<Integer, PaymentAccount> payment : this.paymentAccountMap.entrySet()) {
             PaymentAccount payValue = payment.getValue();
-            info += payValue.toString();
+            info += payValue;
         }
         info += "}\n";
         return info;
