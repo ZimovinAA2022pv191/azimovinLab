@@ -17,7 +17,7 @@ public class Employee {
     private String firstName;
     private String lastName;
     private String patronymic;
-    private LocalTime dateBirth;
+    private String dateBirth;
     private String post;
     private String bankName;
     private Boolean canWorkDistance;
@@ -29,7 +29,7 @@ public class Employee {
     private Map<Integer, PaymentAccount> paymentAccountMap = new HashMap<>();
 
     public Employee(Bank bank, BankOffice bankOffice, Integer id, String firstName, String lastName, String patronymic,
-                    LocalTime dateBirth, String post, Boolean canWorkDistance, Boolean canGiveCredite, Double salary) {
+                    String dateBirth, String post, Boolean canWorkDistance, Boolean canGiveCredite, Double salary) {
         this.setBank(bank);
         this.setBankOffice(bankOffice);
         this.setId(id);
@@ -105,11 +105,11 @@ public class Employee {
         return this.patronymic;
     }
 
-    public void setDateBirth(LocalTime dateBirth) {
+    public void setDateBirth(String dateBirth) {
         this.dateBirth = dateBirth;
     }
 
-    public LocalTime getDateBirth() {
+    public String getDateBirth() {
         return this.dateBirth;
     }
 

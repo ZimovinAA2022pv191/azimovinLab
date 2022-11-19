@@ -13,7 +13,7 @@ public class EmployeeImpl implements EmployeeService {
 
     @Override
     public Employee createEmployee(Bank bank, BankOffice office, Integer id,
-                                   String firstName, String lastname, String patronymic, LocalTime dateBirth, String post,
+                                   String firstName, String lastname, String patronymic, String dateBirth, String post,
                                    Boolean canWorkDistance, Boolean canGiveCredit, Double salary) {
         emp = new Employee(bank, office, id, firstName, lastname, patronymic, dateBirth, post,
                 canWorkDistance, canGiveCredit, salary);
