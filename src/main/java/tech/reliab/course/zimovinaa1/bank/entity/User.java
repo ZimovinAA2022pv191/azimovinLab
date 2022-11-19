@@ -9,7 +9,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String patronymic;
-    private LocalTime dateBirth;
+    private String dateBirth;
     private String workPlace;
     private Double monthSalary;
     private int creditRating;
@@ -17,7 +17,7 @@ public class User {
     private Map<Integer, PaymentAccount> paymentAccMap = new HashMap<>();
     private Map<Integer, CreditAccount> crediteAccMap = new HashMap<>();
 
-    public User(int id, String firstName, String lastName, String patronymic, LocalTime dateBirth, String workPlace) {
+    public User(int id, String firstName, String lastName, String patronymic, String dateBirth, String workPlace) {
         this.setUserId(id);
         this.setFirstName(firstName);
         this.setLastName(lastName);
@@ -62,11 +62,11 @@ public class User {
         this.patronymic = patronymic;
     }
 
-    public LocalTime getDateBirth() {
+    public String getDateBirth() {
         return dateBirth;
     }
 
-    public void setDateBirth(LocalTime dateBirth) {
+    public void setDateBirth(String dateBirth) {
         this.dateBirth = dateBirth;
     }
 

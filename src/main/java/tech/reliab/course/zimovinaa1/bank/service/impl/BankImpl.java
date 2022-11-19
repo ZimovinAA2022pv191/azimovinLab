@@ -1,6 +1,7 @@
 package tech.reliab.course.zimovinaa1.bank.service.impl;
 
 import tech.reliab.course.zimovinaa1.bank.entity.Bank;
+import tech.reliab.course.zimovinaa1.bank.entity.BankOffice;
 import tech.reliab.course.zimovinaa1.bank.service.BankService;
 
 public class BankImpl implements BankService {
@@ -15,9 +16,14 @@ public class BankImpl implements BankService {
     }
 
     @Override
-    public Bank readBank()
+    public Bank readBank(Bank bank)
     {
         return bank;
+    }
+
+    @Override
+    public void addOfficeBank(Bank bank, int id, BankOffice bankOffice){
+        bank.addOfficeBank(id, bankOffice);
     }
 
     @Override

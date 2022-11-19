@@ -1,16 +1,16 @@
 package tech.reliab.course.zimovinaa1.bank.service.impl;
 
+import tech.reliab.course.zimovinaa1.bank.entity.CreditAccount;
+import tech.reliab.course.zimovinaa1.bank.entity.PaymentAccount;
 import tech.reliab.course.zimovinaa1.bank.entity.User;
 import tech.reliab.course.zimovinaa1.bank.service.UserService;
-
-import java.time.LocalTime;
 
 public class UserImpl implements UserService {
     private User user;
 
     @Override
     public User createUser(Integer id, String firstName, String lastName, String patronymic,
-                           LocalTime dateBirth, String workPlace) {
+                           String dateBirth, String workPlace) {
         user = new User(id, firstName, lastName, patronymic, dateBirth, workPlace);
         return user;
     }
@@ -24,6 +24,17 @@ public class UserImpl implements UserService {
     public void updateUserWork(User user, String workPlace) {
         user.setWorkPlace(workPlace);
     }
+
+    @Override
+    public void addPaymentAcc(int id, PaymentAccount paymentAccount, User user){
+        user.addPaymentAcc(id, paymentAccount, user);
+    }
+
+    @Override
+    public void addCreditAcc(int id, CreditAccount creditAccount, User user){
+        user.addCreditAcc(id, creditAccount);
+    }
+
 
     @Override
     public void delete(User user) {

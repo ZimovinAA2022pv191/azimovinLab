@@ -11,7 +11,6 @@ public class PaymentAccountImpl implements PaymentAccountService {
 
     @Override
     public PaymentAccount createPayAcc(Bank bank, User user, Integer id) {
-        bank.setCountClient(bank.getCountClient() + 1);
         payAcc = new PaymentAccount(bank, user, id);
         return payAcc;
     }

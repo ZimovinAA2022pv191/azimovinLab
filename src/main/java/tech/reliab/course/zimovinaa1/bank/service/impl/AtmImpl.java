@@ -15,7 +15,7 @@ public class AtmImpl implements AtmService {
     public BankAtm createAtm(Bank bank, BankOffice office, Integer id, String name, String status, Integer employeeId,
                              Boolean canGiveMoney, Boolean canDepositMoney)
     {
-        bank.setCountAtm(bank.getCountAtm() + 1);
+        office.setCountAtm(office.getCountAtm()+1);
         Random random = new Random();
         atm = new BankAtm(office, id, name, status, employeeId, canGiveMoney, canDepositMoney, bank.getMoney(),
                 random.nextDouble(1000.0, 3000.0));

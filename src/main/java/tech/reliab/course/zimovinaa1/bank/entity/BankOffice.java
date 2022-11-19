@@ -143,6 +143,7 @@ public class BankOffice {
         String info = "BankOffice{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", bankName='" + this.bank.getName() + '\'' +
                 ", address='" + address + '\'' +
                 ", status='" + status + '\'' +
                 ", canSetAtm=" + canSetAtm +

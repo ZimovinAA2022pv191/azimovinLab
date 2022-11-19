@@ -15,18 +15,18 @@ public class CreditAccount{
     private Integer id;
     private String userName;
     private String bankName;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private String startDate;
+    private String endDate;
     private Integer countMonth;
     private Double creditSum;
     private Integer interestRate;
-    private int monthPay;
+    private Double monthPay;
     private String employeeName;
     private int paymentAccountId;
 
     public CreditAccount(Bank bank, User user, Employee employee, PaymentAccount paymentAccount,
-                         Integer id, LocalDate startDate, LocalDate endDate, Integer countMonth, Double creditSum,
-                         Integer monthPay)
+                         Integer id, String startDate, String endDate, Integer countMonth, Double creditSum,
+                         Double monthPay)
     {
         this.setBank(bank);
         this.setUser(user);
@@ -84,19 +84,19 @@ public class CreditAccount{
         this.bankName = bank.getName();
     }
 
-    public LocalDate getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
@@ -124,11 +124,11 @@ public class CreditAccount{
         this.interestRate = bank.getRate();
     }
 
-    public Integer getMonthPay() {
+    public Double getMonthPay() {
         return monthPay;
     }
 
-    public void setMonthPay(int monthPay) {
+    public void setMonthPay(Double monthPay) {
         this.monthPay = monthPay;
     }
 

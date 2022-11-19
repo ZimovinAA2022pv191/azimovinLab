@@ -149,8 +149,7 @@ public class Bank {
                 ", countClient=" + countClient +
                 ", rate=" + rate +
                 ", money=" + money +
-                ", percentage=" + percentage +
-                "\n";
+                ", percentage=" + percentage + "\n";
         for (Map.Entry<Integer, BankOffice> office : this.officeMap.entrySet()) {
             BankOffice bankValue = office.getValue();
             info += bankValue + "\n";
@@ -159,7 +158,7 @@ public class Bank {
             User userValue = userAcc.getValue();
             info +="\n"+ userValue + "\n";
         }
-        info += "\n}";
+        info += "}";
         return info;
     }
 }

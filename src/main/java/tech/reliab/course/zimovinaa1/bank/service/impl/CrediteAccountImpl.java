@@ -11,8 +11,9 @@ public class CrediteAccountImpl implements CrediteAccountService {
 
     @Override
     public CreditAccount createCreditAcc(Bank bank, User user, Employee employee,
-                                         PaymentAccount paymentAccount, Integer id, LocalDate startDate,
-                                         LocalDate endDate, Integer countMonth, Double creditSum, Integer monthPay) {
+                                         PaymentAccount paymentAccount, Integer id, String startDate,
+                                         String endDate, Integer countMonth, Double creditSum) {
+        double monthPay = creditSum * bank.getPercentage()/12;
         crediteAcc = new CreditAccount(bank, user, employee, paymentAccount, id, startDate,
                 endDate, countMonth, creditSum, monthPay);
         return crediteAcc;

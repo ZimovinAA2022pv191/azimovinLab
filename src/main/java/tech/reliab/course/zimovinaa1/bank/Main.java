@@ -4,104 +4,74 @@ import tech.reliab.course.zimovinaa1.bank.entity.*;
 import tech.reliab.course.zimovinaa1.bank.service.*;
 import tech.reliab.course.zimovinaa1.bank.service.impl.*;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Month;
-import java.util.Random;
-
-class InitorSystem {
-    Random random = new Random();
-    int id;
-    String name;
-
-    public InitorSystem(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    Bank initBank(int countOffice, int countEmployee, int countAtm, int countPayAcc, int countCreditAcc, int countUser) {
-        Bank bank = new Bank(this.name, this.id);
-        int cUsers = 0;
-        int cCredit = 0;
-        for (int i = 0; i < countOffice; i++) {
-            BankOffice office = initOffice(bank, random.nextInt(65536), "Sber №" + i, "Belgorod, Slavyanskaya 45A", "Работает",
-                    random.nextBoolean(), random.nextBoolean(), random.nextBoolean(), random.nextBoolean(), random.nextDouble(99999.9), random.nextDouble(99999.9));
-
-            for (int j = 0; j < countEmployee; j++) {
-                Employee employee = initEmployee(bank, office, random.nextInt(65536), "Alex", "Popov",
-                        "Evgenievich", LocalTime.now(), "работник", random.nextBoolean(), random.nextBoolean(),
-                        random.nextDouble(), random.nextInt());
-                BankAtm atm = initAtm(office, "Atm#" + random.nextInt(65536), "Работает", random.nextInt(65536),
-                        employee, random.nextInt(65536));
 
 
-                while (cUsers < countUser) {
-                    User user = initUser(random.nextInt(), "Andrey", "Zimovin", "Alex",
-                            LocalTime.now(), "BSTU");
-                    cUsers+=1;
-                    while(cCredit < countCreditAcc)
-                    {
-                        PaymentAccount payAcc = initPayAcc(bank, user, random.nextInt(65536));
-                        CreditAccount creditAccount = initCreditAcc(bank, user, employee, payAcc, random.nextInt(65536),
-                                LocalDate.of(2017, Month.NOVEMBER, 30), LocalDate.of(2022, Month.NOVEMBER, 30),
-                                random.nextInt(65536), random.nextDouble(), random.nextInt(65536));
-                        cCredit+=1;
-                    }
-                }
-            }
-        }
-        return bank;
-    }
-
-    public BankOffice initOffice(Bank bank, int id, String name, String address, String status, Boolean canSetAtm,
-                                 Boolean canTakeCredit, Boolean canGiveMoney, Boolean canDepositMoney, Double money, Double cost) {
-        BankOffice office = new BankOffice(bank, id, name, address, status, canSetAtm, canTakeCredit, canGiveMoney, canDepositMoney,
-                money, cost);
-        bank.addOfficeBank(id, office);
-        return office;
-    }
-
-    public Employee initEmployee(Bank bank, BankOffice bankOffice, int id, String firstName, String lastName, String patronymic,
-                                 LocalTime dateBirth, String post, Boolean canWorkDistance, Boolean canGiveCredit, Double salary,
-                                 int idEmp) {
-        Employee employee = new Employee(bank, bankOffice, id, firstName, lastName, patronymic, dateBirth, post,
-                canWorkDistance, canGiveCredit, salary);
-        bankOffice.addEmployer(idEmp, employee);
-        return employee;
-    }
-
-    public BankAtm initAtm(BankOffice office, String name, String status, int id, Employee empId, int idAtm) {
-        BankAtm atm = new BankAtm(office, id, name, status, empId.getId(), true, true,
-                150000, 12000);
-        empId.addAtm(idAtm, atm);
-        office.setCountAtm(office.getCountAtm() + 1);
-        return atm;
-    }
-
-    public PaymentAccount initPayAcc(Bank bank, User user, int id) {
-        PaymentAccount payAcc = new PaymentAccount(bank, user, id);
-        user.addPaymentAcc(id, payAcc, user);
-        return payAcc;
-    }
-
-    public CreditAccount initCreditAcc(Bank bank, User user, Employee employee, PaymentAccount paymentAccount,
-                                       Integer id, LocalDate startDate, LocalDate endDate, Integer countMonth,
-                                       Double creditSum, Integer monthPay) {
-        CreditAccount acc = new CreditAccount(bank, user, employee, paymentAccount, id, startDate, endDate, countMonth,
-                creditSum, monthPay);
-        user.addCreditAcc(id, acc);
-        return acc;
-    }
-
-    public User initUser(int id, String firstName, String lastName, String patronymic, LocalTime dateBirth, String workPlace) {
-        return new User(id, firstName, lastName, patronymic, dateBirth, workPlace);
-    }
-}
 
 public class Main {
     public static void main(String[] args) {
-        InitorSystem init = new InitorSystem(1, "TinkoFF Лучший банк");
-        Bank bank = init.initBank(3, 5, 5, 2, 2, 5);
-        System.out.println(bank);
+        BankImpl bankImpl = new BankImpl();
+        Bank bank1 = bankImpl.createBank("TinkoFF", 100);
+        Bank bank2 = bankImpl.createBank("SberBank", 212);
+        Bank bank3 = bankImpl.createBank("VTB 24", 133);
+        Bank bank4 = bankImpl.createBank("ALFA-Bank", 144);
+        Bank bank5 = bankImpl.createBank("MTS Bank", 125);
+
+        BankOfficeService bankOfficeImpl = new BankOfficeImpl();
+        BankOffice office1 = bankOfficeImpl.createOffice(bank1, 12, "Tinkoff #1",
+                "Белгород, ул.Костюкова д.43", "Работает", true,true,true,
+                true,  120000.0);
+        BankOffice office2 = bankOfficeImpl.createOffice(bank1, 13, "Tinkoff #2",
+                "Белгород, ул.Лигачева д.12, корп. 1", "Работает", true,true,true,
+                true,  90000.0);
+        BankOffice office3 = bankOfficeImpl.createOffice(bank1, 14, "Tinkoff #3",
+                "Белгород, ул.Садовая д.25а", "Работает", true,true,true,
+                true,  95000.0);
+        bankImpl.addOfficeBank(bank1, office1.getId(), office1);
+        bankImpl.addOfficeBank(bank1, office2.getId(), office2);
+        bankImpl.addOfficeBank(bank1, office3.getId(), office3);
+
+        EmployeeService empImpl = new EmployeeImpl();
+        Employee employee1 = empImpl.createEmployee(bank1, office1, 1001, "Andrey", "Zimovin",
+                "Alexandrovich", LocalTime.now(), "Admin", true, false, 20000.0);
+        Employee employee2 = empImpl.createEmployee(bank1, office1, 1002, "Andrey", "Zimovin",
+                "Alexandrovich", LocalTime.now(), "Admin", true, false, 20000.0);
+        Employee employee3 = empImpl.createEmployee(bank1, office1, 1003, "Andrey", "Zimovin",
+                "Alexandrovich", LocalTime.now(), "Admin", true, false, 20000.0);
+        Employee employee4 = empImpl.createEmployee(bank1, office1, 1004, "Andrey", "Zimovin",
+                "Alexandrovich", LocalTime.now(), "Admin", true, false, 20000.0);
+        Employee employee5 = empImpl.createEmployee(bank1, office1, 1005, "Andrey", "Zimovin",
+                "Alexandrovich", LocalTime.now(), "Admin", true, false, 20000.0);
+        bankOfficeImpl.addEmployer(office1, employee1.getId(), employee1);
+        bankOfficeImpl.addEmployer(office1, employee2.getId(), employee2);
+        bankOfficeImpl.addEmployer(office1, employee3.getId(), employee3);
+        bankOfficeImpl.addEmployer(office1, employee4.getId(), employee4);
+        bankOfficeImpl.addEmployer(office1, employee5.getId(), employee5);
+
+        AtmService atmImpl = new AtmImpl();
+        BankAtm atm1 = atmImpl.createAtm(bank1, office1, 203, "BankAtm 203-45", "Работает", employee1.getId(),
+                true, true);
+        BankAtm atm2 = atmImpl.createAtm(bank1, office1, 204, "BankAtm 204-45", "Работает", employee2.getId(),
+                true, true);
+        BankAtm atm3 = atmImpl.createAtm(bank1, office1, 205, "BankAtm 205-45", "Работает", employee3.getId(),
+                true, true);
+        empImpl.addAtm(employee1, atm1.getId(), atm1);
+        empImpl.addAtm(employee2, atm2.getId(), atm2);
+        empImpl.addAtm(employee3, atm3.getId(), atm3);
+
+        UserService userImpl = new UserImpl();
+        User user = userImpl.createUser(501, "Andrey", "Zimovin", "Alexandrovich",
+                "02-10-2001", "БГТУ им. В.Г. Шухова");
+
+        PaymentAccountService payImpl = new PaymentAccountImpl();
+        PaymentAccount paymentAccount = payImpl.createPayAcc(bank1, user, 40012);
+        userImpl.addPaymentAcc(paymentAccount.getIdPayAcc(), paymentAccount, user);
+
+        CrediteAccountService creditImpl = new CrediteAccountImpl();
+        CreditAccount creditAccount = creditImpl.createCreditAcc(bank1,user, employee1,paymentAccount, 1003,
+                "19-11-2022", "19-11-2023", 12, 500000.0);
+        userImpl.addCreditAcc(creditAccount.getId(), creditAccount, user);
+        System.out.println(bankImpl.readBank(bank1));
     }
 }
+

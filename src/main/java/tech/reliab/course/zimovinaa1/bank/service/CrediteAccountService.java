@@ -9,8 +9,8 @@ import java.util.Date;
 public interface CrediteAccountService {
 
     CreditAccount createCreditAcc(Bank bank, User user, Employee employee,
-                                  PaymentAccount paymentAccount, Integer id, LocalDate startDate,
-                                  LocalDate endDate, Integer countMonth, Double creditSum, Integer monthPay);
+                                  PaymentAccount paymentAccount, Integer id, String startDate,
+                                  String endDate, Integer countMonth, Double creditSum);
 
 
     CreditAccount readCreditAcc();

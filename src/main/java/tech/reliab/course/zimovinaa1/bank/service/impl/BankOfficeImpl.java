@@ -2,6 +2,7 @@ package tech.reliab.course.zimovinaa1.bank.service.impl;
 
 import tech.reliab.course.zimovinaa1.bank.entity.Bank;
 import tech.reliab.course.zimovinaa1.bank.entity.BankOffice;
+import tech.reliab.course.zimovinaa1.bank.entity.Employee;
 import tech.reliab.course.zimovinaa1.bank.service.BankOfficeService;
 
 public class BankOfficeImpl implements BankOfficeService {
@@ -11,15 +12,18 @@ public class BankOfficeImpl implements BankOfficeService {
     public BankOffice createOffice(Bank bank, Integer id, String name, String address, String status,
                                    Boolean canSetAtm, Boolean canTakeCredit, Boolean canGiveMoney,
                                    Boolean canDepositMoney, Double cost) {
-        bank.setCountOffice(bank.getCountOffice() + 1);
         Double money = bank.getMoney();
         office = new BankOffice(bank, id, name, address, status, canSetAtm, canTakeCredit, canGiveMoney,
                 canDepositMoney, money, cost);
        return office;
     }
+    @Override
+    public void addEmployer(BankOffice bankOffice, int idEmp, Employee employee){
+        bankOffice.addEmployer(idEmp, employee);
+    }
 
     @Override
-    public BankOffice readOffice() {
+    public BankOffice readOffice(BankOffice office) {
         return office;
     }
 
