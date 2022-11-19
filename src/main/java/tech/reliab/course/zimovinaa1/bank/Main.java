@@ -13,9 +13,6 @@ public class Main {
         BankImpl bankImpl = new BankImpl();
         Bank bank1 = bankImpl.createBank("TinkoFF", 100);
         Bank bank2 = bankImpl.createBank("SberBank", 212);
-        Bank bank3 = bankImpl.createBank("VTB 24", 133);
-        Bank bank4 = bankImpl.createBank("ALFA-Bank", 144);
-        Bank bank5 = bankImpl.createBank("MTS Bank", 125);
 
         BankOfficeService bankOfficeImpl = new BankOfficeImpl();
         BankOffice office1 = bankOfficeImpl.createOffice(bank1, 12, "Tinkoff #1",
