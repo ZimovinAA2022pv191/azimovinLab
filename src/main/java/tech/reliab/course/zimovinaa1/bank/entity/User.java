@@ -113,12 +113,12 @@ public class User {
         this.crediteAccMap.remove(id);
     }
 
-    public PaymentAccount getPaymentAcc(int id) {
-        return this.paymentAccMap.get(id);
+    public Map<Integer, PaymentAccount> getPaymentAccs() {
+        return this.paymentAccMap;
     }
 
-    public CreditAccount getCreditAcc(int id) {
-        return this.crediteAccMap.get(id);
+    public Map<Integer, CreditAccount> getCreditAccs() {
+        return this.crediteAccMap;
     }
 
     @Override
@@ -134,16 +134,16 @@ public class User {
                 ", creditRating=" + creditRating +
                 "\n";
 
-        for (Map.Entry<Integer, PaymentAccount> payAcc : this.paymentAccMap.entrySet()) {
-            PaymentAccount payValue = payAcc.getValue();
-            info += payValue + "\n";
-        }
-
-        for (Map.Entry<Integer, CreditAccount> creditAcc : this.crediteAccMap.entrySet()) {
-            CreditAccount creditValue = creditAcc.getValue();
-            info += creditValue + "\n";
-        }
-        info += "\n}";
+//        for (Map.Entry<Integer, PaymentAccount> payAcc : this.paymentAccMap.entrySet()) {
+//            PaymentAccount payValue = payAcc.getValue();
+//            info += payValue + "\n";
+//        }
+//
+//        for (Map.Entry<Integer, CreditAccount> creditAcc : this.crediteAccMap.entrySet()) {
+//            CreditAccount creditValue = creditAcc.getValue();
+//            info += creditValue + "\n";
+//        }
+//        info += "\n}";
         return info;
     }
 }

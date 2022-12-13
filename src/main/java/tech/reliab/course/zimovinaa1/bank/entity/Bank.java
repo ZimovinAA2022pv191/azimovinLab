@@ -150,15 +150,15 @@ public class Bank {
                 ", rate=" + rate +
                 ", money=" + money +
                 ", percentage=" + percentage + "\n";
-        for (Map.Entry<Integer, BankOffice> office : this.officeMap.entrySet()) {
-            BankOffice bankValue = office.getValue();
-            info += bankValue + "\n";
-        }
-        for (Map.Entry<Integer, User> userAcc : this.userMap.entrySet()) {
-            User userValue = userAcc.getValue();
-            info +="\n"+ userValue + "\n";
-        }
-        info += "}";
+//        for (Map.Entry<Integer, BankOffice> office : this.officeMap.entrySet()) {
+//            BankOffice bankValue = office.getValue();
+//            info += bankValue + "\n";
+//        }
+//        for (Map.Entry<Integer, User> userAcc : this.userMap.entrySet()) {
+//            User userValue = userAcc.getValue();
+//            info +="\n"+ userValue + "\n";
+//        }
+//        info += "}";
         return info;
     }
 }

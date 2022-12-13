@@ -5,6 +5,8 @@ import tech.reliab.course.zimovinaa1.bank.service.*;
 import tech.reliab.course.zimovinaa1.bank.service.impl.*;
 
 import java.time.LocalTime;
+import java.util.Map;
+import java.util.Scanner;
 
 
 public class Main {
@@ -56,12 +58,55 @@ public class Main {
                 }
             }
         }
-
-        for (int i = 0; i < 5; i++) {
-            System.out.println("************************");
-            System.out.println(bank[i]);
+        Scanner console = new Scanner(System.in);
+        Map<Integer, User> usersList = bank[0].getUserAccounts();
+        boolean flag=true, userFlag=false;
+        while(flag){
+            System.out.println("Введите команду:\n- 1 вывод информации о банке\n- 2 вывод информации о пользователе\n" +
+                    "- 3 вывод информации о дебетовом счете\n" +
+                    "- 4 вывод информации о кредитном счете\n"+
+                    "- 0 выход\n");
+            int c = console.nextInt();
+            switch (c){
+                case(1):
+                    System.out.println(bankImpl.readBank(bank[0]));
+                    break;
+                case(2):
+                    System.out.println(usersList);
+                    userFlag=true;
+                    break;
+                case(3):
+                    if (!userFlag)
+                    {
+                        System.out.println("Запросите список клиентов\n");
+                    }
+                    else{
+                        System.out.println("Введите ключ клиента");
+                        int key = console.nextInt();
+                        User tmpUser = usersList.get(key);
+                        System.out.println(tmpUser.getPaymentAccs());
+                    }
+                    break;
+                case(4):
+                    if (!userFlag)
+                    {
+                        System.out.println("Запросите список клиентов\n");
+                    }
+                    else{
+                        System.out.println("Введите ключ клиента");
+                        int key = console.nextInt();
+                        User tmpUser = usersList.get(key);
+                        System.out.println(tmpUser.getCreditAccs());
+                    }
+                    break;
+                case(0):
+                    flag=false;
+                    break;
+                default:
+                    System.out.println("Вы ввели неверную команду\n");
+            }
+            System.out.flush();
         }
-
     }
 }
 

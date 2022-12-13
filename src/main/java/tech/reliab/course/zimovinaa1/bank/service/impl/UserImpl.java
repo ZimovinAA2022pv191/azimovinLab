@@ -27,7 +27,7 @@ public class UserImpl implements UserService {
 
     @Override
     public void addPaymentAcc(int id, PaymentAccount paymentAccount, User user){
-        user.addPaymentAcc(id, paymentAccount, user);
+        user.addPaymentAcc(user.getUserId(), paymentAccount, user);
     }
 
     @Override
