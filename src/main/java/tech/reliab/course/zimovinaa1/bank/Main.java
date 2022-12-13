@@ -63,8 +63,6 @@ public class Main {
         boolean flag=true, userFlag=false;
         while(flag){
             System.out.println("Введите команду:\n- 1 вывод информации о банке\n- 2 вывод информации о пользователе\n" +
-                    "- 3 вывод информации о дебетовом счете\n" +
-                    "- 4 вывод информации о кредитном счете\n"+
                     "- 0 выход\n");
             int c = console.nextInt();
             switch (c){
@@ -73,26 +71,16 @@ public class Main {
                     break;
                 case(2):
                     System.out.println(usersList);
-                    userFlag=true;
-                    break;
-                case(3):
-                    if (!userFlag)
-                    {
-                        System.out.println("Запросите список клиентов\n");
-                    }
-                    else{
+                    System.out.println("- 3 вывод информации о дебетовом счете\n" +
+                            "- 4 вывод информации о кредитном счете\n");
+                    int com = console.nextInt();
+                    if(com==3){
                         System.out.println("Введите ключ клиента");
                         int key = console.nextInt();
                         User tmpUser = usersList.get(key);
                         System.out.println(tmpUser.getPaymentAccs());
                     }
-                    break;
-                case(4):
-                    if (!userFlag)
-                    {
-                        System.out.println("Запросите список клиентов\n");
-                    }
-                    else{
+                    if(com==4){
                         System.out.println("Введите ключ клиента");
                         int key = console.nextInt();
                         User tmpUser = usersList.get(key);
@@ -105,7 +93,7 @@ public class Main {
                 default:
                     System.out.println("Вы ввели неверную команду\n");
             }
-            System.out.flush();
+
         }
     }
 }
