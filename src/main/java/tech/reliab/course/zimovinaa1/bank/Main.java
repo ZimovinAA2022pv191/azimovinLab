@@ -8,9 +8,7 @@ import tech.reliab.course.zimovinaa1.bank.service.impl.*;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
+
 
 
 public class Main {
@@ -111,13 +109,22 @@ public class Main {
             boolean officeCheck = true;
             for (int i = 0; i < officeMap.size() && officeCheck; i++) {
                 BankOffice tmp = officeMap.get(i + 1);
-                if (tmp.getCanTakeCredit()) {
+                if (tmp.getCanTakeCredit() && tmp.getStatus()=="Работает")
+                {
                     if (tmp.getMoney() >= money) {
                         trueOffice = tmp;
                         officeCheck = false;
                     }
                 }
             }
+            try{
+                if (officeCheck) {
+                    throw new RatingException("Ошибка. Офисы не работают!");
+                }
+            }catch (RatingException e){
+                System.out.println("\n"+e.getMessage());
+            }
+
             officeCheck = true;
             Map<Integer, Employee> employeeMap = trueOffice.getEmployeeMap();
             Employee trueEmp = new Employee();
@@ -132,12 +139,9 @@ public class Main {
             officeCheck = false;
             for (Map.Entry<Integer, User> u : userMap.entrySet()) {
                 User tmp = u.getValue();
-                if (tmp.getDateBirth() != user.getDateBirth()) {
                     if (tmp.getLastName() == user.getLastName() && tmp.getFirstName() == user.getFirstName()) {
-                        System.out.println("Вы являетесь клиентом банка!");
                         officeCheck = true;
                     }
-                }
             }
             if (!officeCheck) {
                 System.out.println("Запуск формы добавления нового клиента банка...");
@@ -148,20 +152,29 @@ public class Main {
                 chooseBank.addUserAcc(user.getUserId(), user);
                 System.out.println("Регистрация успешно завершена!");
             }
-            if (user.getCreditRating() < 5000 && chooseBank.getRate() > 50) {
-                System.out.println("К сожалению ваш кредитный рейтинг не соответствует необходимым требованиям");
+            try{
+                if (user.getCreditRating() < 50 && chooseBank.getRate() > 50) {
+                    throw new RatingException("Ваш кредитный рейтинг не соответсвтует банковским требованиям!");
+                }
+            }catch (RatingException e){
+                System.out.println("\n"+e.getMessage());
             }
             Map<Integer, BankAtm> atmMap = trueOffice.getAtmMap();
-            System.out.println(atmMap);
             officeCheck = true;
             BankAtm atm = new BankAtm();
             for (int i = 0; i < trueOffice.getCountAtm() && officeCheck; i++) {
                 BankAtm tmp = atmMap.get(i + 1);
-                System.out.println(tmp);
                 if (tmp.getCanGiveMoney() && tmp.getMoney() >= money) {
                     officeCheck = false;
                     atm = tmp;
                 }
+            }
+            try{
+                if(officeCheck){
+                    throw new AtmMoneyExceptions("Выберите другой офис. Недостаточно денег!");
+                }
+            }catch (AtmMoneyExceptions e) {
+                System.out.println("\n"+e.getMessage());
             }
             System.out.println("Выдаем деньги...");
             double getMoney = atm.getMoney();
