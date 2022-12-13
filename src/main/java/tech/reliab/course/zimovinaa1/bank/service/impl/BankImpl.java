@@ -9,9 +9,9 @@ public class BankImpl implements BankService {
     private Bank bank;
 
     @Override
-    public Bank createBank(String name, Integer id)
+    public Bank createBank(String name, Integer id, Double percentage)
     {
-        bank = new Bank(name, id);
+        bank = new Bank(name, id,percentage);
         return bank;
     }
 

@@ -22,7 +22,7 @@ public class BankOffice {
     private double cost;
 
     private Map<Integer, Employee> employeeMap = new HashMap<>();
-
+    private final Map<Integer, BankAtm> atmMap = new HashMap<>();
     public BankOffice(Bank bank, int id, String name, String address, String status, Boolean canSetAtm,
                       Boolean canTakeCredit, Boolean canGiveMoney, Boolean canDepositMoney, Double money, Double cost)
     {
@@ -40,6 +40,9 @@ public class BankOffice {
         this.setCost(cost);
     }
 
+    public BankOffice(){
+    }
+
     public void delete_employer(int id){
         this.bank.setCountEmployee(this.bank.getCountEmployee()-1);
         this.employeeMap.remove(id);
@@ -48,6 +51,19 @@ public class BankOffice {
     public void addEmployer(int id, Employee emp){
         this.bank.setCountEmployee(this.bank.getCountEmployee()+1);
         this.employeeMap.put(id, emp);
+    }
+
+    public Map<Integer,Employee> getEmployeeMap()
+    {
+        return this.employeeMap;
+    }
+
+    public void addOfficeAtm(int id, BankAtm atm){
+        this.atmMap.put(id, atm);
+        this.countAtm++;
+    }
+    public Map<Integer,BankAtm> getAtmMap(){
+        return this.atmMap;
     }
 
     public Integer getId() {

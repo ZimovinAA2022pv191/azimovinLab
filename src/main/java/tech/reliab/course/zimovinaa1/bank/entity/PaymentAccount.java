@@ -12,20 +12,21 @@ public class PaymentAccount{
 
     public PaymentAccount(Bank bank, User user, Integer id)
     {
-        this.setUser(user);
         this.setBank(bank);
+        this.setUser(user);
         this.setIdPayAcc(id);
         this.setBankName();
         this.setUserName();
         this.setMoney(0.0);
     }
-
+    public PaymentAccount(){}
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+        this.bank.addUserAcc(this.user.getUserId(), this.user);
     }
 
     public Bank getBank() {

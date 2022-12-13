@@ -45,6 +45,8 @@ public class Employee {
         this.setSalary(salary);
     }
 
+    public Employee(){}
+
     public void setOfficeId() {
         this.officeId = this.bankOffice.getId();
     }

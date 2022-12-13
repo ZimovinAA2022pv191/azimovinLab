@@ -2,6 +2,7 @@ package tech.reliab.course.zimovinaa1.bank.entity;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -19,7 +20,8 @@ public class Bank {
     private final Map<Integer, BankOffice> officeMap = new HashMap<>();
     private final Map<Integer, User> userMap = new HashMap<>();
 
-    public Bank(String name, Integer id) {
+
+    public Bank(String name, Integer id, Double percent) {
         this.setName(name);
         this.setId(id);
         this.setCountOffice(0);
@@ -29,9 +31,9 @@ public class Bank {
         Random rand = new Random();
         this.setRate(rand.nextInt(0, 100));
         this.setMoney(rand.nextDouble(0, 1000000));
-        this.setPercentage(rand.nextDouble(1, 20));
+        this.setPercentage(percent);
     }
-
+    public Bank(){}
     public String getName() {
         return name;
     }
@@ -112,6 +114,7 @@ public class Bank {
         this.officeMap.put(id, bankOffice);
         this.countOffice++;
     }
+
 
     public void delUserAcc(int id){
         this.userMap.remove(id);

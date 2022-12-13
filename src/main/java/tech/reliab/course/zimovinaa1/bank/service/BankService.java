@@ -6,7 +6,7 @@ import tech.reliab.course.zimovinaa1.bank.entity.BankOffice;
 public interface BankService {
 
 
-    Bank createBank(String name, Integer id);
+    Bank createBank(String name, Integer id, Double percentage);
     Bank readBank(Bank bank);
 
     void addOfficeBank(Bank bank, int id, BankOffice bankOffice);

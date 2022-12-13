@@ -30,6 +30,8 @@ public class BankAtm{
         setCost(cost);
     }
 
+    public BankAtm(){}
+
     public BankOffice getOffice() {
         return office;
     }
