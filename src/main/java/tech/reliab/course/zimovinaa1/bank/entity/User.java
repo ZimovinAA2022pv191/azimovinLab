@@ -29,6 +29,17 @@ public class User {
         this.setCreditRating(rand.nextInt(50, 100));
 
     }
+    public User(int id, String firstName, String lastName, String patronymic, String dateBirth, String workPlace, Double salary) {
+        this.setUserId(id);
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setPatronymic(patronymic);
+        this.setDateBirth(dateBirth);
+        this.setWorkPlace(workPlace);
+        Random rand = new Random();
+        this.monthSalary = salary;
+        this.setCreditRating(rand.nextInt(50, 100));
+    }
 
     public int getUserId() {
         return id;

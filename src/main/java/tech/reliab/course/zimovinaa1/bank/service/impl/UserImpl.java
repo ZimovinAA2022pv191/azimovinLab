@@ -10,6 +10,12 @@ public class UserImpl implements UserService {
 
     @Override
     public User createUser(Integer id, String firstName, String lastName, String patronymic,
+                           String dateBirth, String workPlace, Double salary) {
+        user = new User(id, firstName, lastName, patronymic, dateBirth, workPlace, salary);
+        return user;
+    }
+    @Override
+    public User createUser(Integer id, String firstName, String lastName, String patronymic,
                            String dateBirth, String workPlace) {
         user = new User(id, firstName, lastName, patronymic, dateBirth, workPlace);
         return user;

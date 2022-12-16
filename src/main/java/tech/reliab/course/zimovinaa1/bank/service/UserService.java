@@ -12,6 +12,8 @@ import java.util.Locale;
 public interface UserService {
     User createUser(Integer id, String firstName, String lastName, String patronymic,
                     String dateBirth, String workPlace);
+    User createUser(Integer id, String firstName, String lastName, String patronymic,
+                    String dateBirth, String workPlace, Double salary);
 
     User readUser();
 
