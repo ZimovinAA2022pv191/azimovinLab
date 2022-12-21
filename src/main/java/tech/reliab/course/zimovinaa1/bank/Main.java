@@ -5,6 +5,7 @@ import tech.reliab.course.zimovinaa1.bank.exception.*;
 import tech.reliab.course.zimovinaa1.bank.service.*;
 import tech.reliab.course.zimovinaa1.bank.service.impl.*;
 
+import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
@@ -127,6 +128,8 @@ public class Main {
             }
             System.out.print("Введите сумму кредита:");
             double money = console.nextDouble();
+            System.out.println("Укажите срок кредита (кол-во месяцев):");
+            int kDays = console.nextInt();
             Map<Integer, BankOffice> officeMap = chooseBank.getOffices();
             BankOffice trueOffice = new BankOffice();
             boolean officeCheck = true;
@@ -171,10 +174,8 @@ public class Main {
                     trueEmp = emp;
                     exceptionVal = 0;
                     officeCheck = false;
-                    System.out.println("Сработал yes");
                 } else {
                     exceptionVal = 7;
-                    System.out.println("Сработал no");
                 }
 
             }
@@ -189,13 +190,13 @@ public class Main {
             officeCheck = false;
             String name, last, mid;
 
-            System.out.println("Введите имя:");
+            //System.out.println("Введите имя:");
             name = console.nextLine(); //Тут короче чет с вводом, я не понимаю что
             name = "Михаил";
-            System.out.print("Ввидет фамилию:");
+            //System.out.print("Ввидет фамилию:");
             //last = console.nextLine();
             last="Ломоносов";
-            System.out.print("Введите отчество:");
+            //System.out.print("Введите отчество:");
             //mid = console.nextLine();
             mid="Васильевич";
             for (Map.Entry<Integer, User> u : userMap.entrySet()) {
@@ -255,7 +256,11 @@ public class Main {
             catch(AtmWorkException e){
                 System.out.println("\n" + e.getMessage());
             }
-            System.out.println("Выдаем деньги...");
+            double mounthPay =(money/chooseBank.getPercentage())+money/kDays;
+            DecimalFormat dF = new DecimalFormat( "#.###" );
+            System.out.format("\nЗаявка на кредит одобрена\n"+"Сумма кредита: "+money+"" +
+                    "\nЕжемесячный платеж:"+ dF.format(mounthPay)+"\n");
+            System.out.println("\nВыдаем деньги...");
             double getMoney = atm.getMoney();
             atm.setMoney(atm.getMoney() - money);
             payment.setMoney(getMoney);
