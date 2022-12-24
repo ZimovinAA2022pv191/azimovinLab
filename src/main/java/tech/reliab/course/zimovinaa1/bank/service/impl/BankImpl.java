@@ -23,8 +23,8 @@ public class BankImpl implements BankService {
 
 
     @Override
-    public void addOfficeBank(Bank bank, int id, BankOffice bankOffice){
-        bank.addOfficeBank(id, bankOffice);
+    public void addOfficeBank(Bank bank,BankOffice bankOffice){
+        bank.addOfficeBank(bankOffice);
     }
 
     @Override

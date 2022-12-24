@@ -1,6 +1,8 @@
 package tech.reliab.course.zimovinaa1.bank.entity;
 
 
+import tech.reliab.course.zimovinaa1.bank.entity.JsonClasses.JsonPayAcc;
+
 public class PaymentAccount{
     private User user;
     private Bank bank;
@@ -26,7 +28,7 @@ public class PaymentAccount{
 
     public void setUser(User user) {
         this.user = user;
-        this.bank.addUserAcc(this.user.getUserId(), this.user);
+        this.bank.addUserAcc(this.user);
     }
 
     public Bank getBank() {
@@ -80,5 +82,12 @@ public class PaymentAccount{
                 ", bankName='" + bankName + '\'' +
                 ", money=" + money +
                 '}';
+    }
+
+    public void updateFromJsonClass(JsonPayAcc jsonPayAcc) {
+        this.setIdPayAcc(jsonPayAcc.getId());
+        this.getBank().setId(jsonPayAcc.getBankID());
+        this.getUser().setId(jsonPayAcc.getUserID());
+        this.setMoney(jsonPayAcc.getBalance());
     }
 }

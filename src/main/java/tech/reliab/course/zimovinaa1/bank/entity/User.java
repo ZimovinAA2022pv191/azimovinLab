@@ -1,10 +1,12 @@
 package tech.reliab.course.zimovinaa1.bank.entity;
 
 
+import tech.reliab.course.zimovinaa1.bank.entity.parents.Human;
+
 import java.time.LocalTime;
 import java.util.*;
 
-public class User {
+public class User extends Human {
     private int id;
     private String firstName;
     private String lastName;
@@ -18,6 +20,7 @@ public class User {
     private ArrayList<CreditAccount> crediteAccMap = new ArrayList<>();
 
     public User(int id, String firstName, String lastName, String patronymic, String dateBirth, String workPlace) {
+        super(id, firstName, lastName,patronymic, dateBirth);
         this.setUserId(id);
         this.setFirstName(firstName);
         this.setLastName(lastName);
@@ -30,6 +33,7 @@ public class User {
 
     }
     public User(int id, String firstName, String lastName, String patronymic, String dateBirth, String workPlace, Double salary) {
+        super(id, firstName, lastName,patronymic, dateBirth);
         this.setUserId(id);
         this.setFirstName(firstName);
         this.setLastName(lastName);
@@ -108,12 +112,23 @@ public class User {
     public void addPaymentAcc(int id, PaymentAccount payAcc, User user) {
         Bank bank = payAcc.getBank();
         bank.setCountClient(bank.getCountClient() + 1);
-        bank.addUserAcc(id, user);
-        this.paymentAccMap.set(id, payAcc);
+        bank.addUserAcc(user);
+        this.paymentAccMap.add(payAcc);
     }
 
-    public void addCreditAcc(int id, CreditAccount creditAcc) {
-        this.crediteAccMap.set(id, creditAcc);
+    public void setPaymentAccs(ArrayList<PaymentAccount> paymentAccs){
+        this.paymentAccMap = paymentAccs;
+    }
+
+    public void setCreditAccs(ArrayList<CreditAccount> creditAccs){
+        this.crediteAccMap = creditAccs;
+    }
+    public void addCreditAcc(CreditAccount creditAccount){
+        this.crediteAccMap.add(creditAccount);
+    }
+
+    public void setCreditAcc(CreditAccount creditAcc) {
+        this.crediteAccMap.add(creditAcc);
     }
 
     public void delPaymentAcc(int id) {
@@ -126,6 +141,14 @@ public class User {
 
     public ArrayList<PaymentAccount> getPaymentAccs() {
         return this.paymentAccMap;
+    }
+
+    public PaymentAccount getPaymentAcc(){
+        return this.paymentAccMap.get(id);
+    }
+
+    public CreditAccount getCreditAcc(){
+        return this.crediteAccMap.get(this.getUserId());
     }
 
     public ArrayList<CreditAccount> getCreditAccs() {

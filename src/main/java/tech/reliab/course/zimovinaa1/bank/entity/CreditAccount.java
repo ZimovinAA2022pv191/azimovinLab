@@ -1,13 +1,15 @@
 package tech.reliab.course.zimovinaa1.bank.entity;
 
 
+import tech.reliab.course.zimovinaa1.bank.entity.JsonClasses.JsonCreditAcc;
+import tech.reliab.course.zimovinaa1.bank.entity.parents.BankAccount;
 import tech.reliab.course.zimovinaa1.bank.service.CrediteAccountService;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 
-public class CreditAccount{
+public class CreditAccount extends BankAccount {
     private User user;
     private Bank bank;
     private Employee employee;
@@ -28,6 +30,7 @@ public class CreditAccount{
                          Integer id, String startDate, String endDate, Integer countMonth, Double creditSum,
                          Double monthPay)
     {
+        super(id, user, bank);
         this.setBank(bank);
         this.setUser(user);
         this.setEmployee(employee);
@@ -42,6 +45,10 @@ public class CreditAccount{
         this.setCreditSum(creditSum);
         this.setMonthPay(monthPay);
         this.setInterestRate();
+    }
+
+    public int getEmployeeId(){
+        return this.employee.getId();
     }
 
     public void setBank(Bank bank) {
@@ -108,7 +115,7 @@ public class CreditAccount{
         this.countMonth = countMonth;
     }
 
-    public Double getCreditSum() {
+    public double getCreditSum() {
         return creditSum;
     }
 
@@ -140,8 +147,8 @@ public class CreditAccount{
         this.employeeName = employee.getFirsName();
     }
 
-    public Integer getPaymentAccountId() {
-        return paymentAccountId;
+    public PaymentAccount getPaymentAccount() {
+        return paymentAccount;
     }
 
     public void setPaymentAccountId() {
@@ -161,8 +168,26 @@ public class CreditAccount{
                         ", employee: " + this.employee.getId() +
                         ", interestRate: " + getInterestRate() +
                         ", monthPay: " + getMonthPay() +
-                        ", paymentAccountId: " + getPaymentAccountId() + "}"
+                        ", paymentAccountId: " + getPaymentAccount().getIdPayAcc() + "}"
         );
+    }
+
+    public Employee getEmployee(){
+        return this.employee;
+    }
+
+
+    public void updateFromJsonClass(JsonCreditAcc jsonCreditAcc) {
+        this.setId(jsonCreditAcc.getId());
+        this.getBank().setId(jsonCreditAcc.getBankID());
+        this.getUser().setId(jsonCreditAcc.getUserID());
+        this.getPaymentAccount().setIdPayAcc(jsonCreditAcc.getPayAccID());
+        this.getEmployee().setId(jsonCreditAcc.getEmployeeID());
+        this.setStartDate(jsonCreditAcc.getStartDate());
+        this.setEndDate(jsonCreditAcc.getEndDate());
+        this.setCountMonth(jsonCreditAcc.getCountMonth());
+        this.setCreditSum(jsonCreditAcc.getSum());
+        this.setMonthPay(jsonCreditAcc.getMonthlyAmount());
     }
 
 }

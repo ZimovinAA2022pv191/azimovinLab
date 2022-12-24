@@ -106,12 +106,12 @@ public class Bank {
         this.percentage = percentage;
     }
 
-    public void addUserAcc(int id, User user){
-        this.userList.set(id, user);
+    public void addUserAcc(User user){
+        this.userList.add(user);
     }
 
-    public void addOfficeBank(int id, BankOffice bankOffice){
-        this.officeList.set(id, bankOffice);
+    public void addOfficeBank(BankOffice bankOffice){
+        this.officeList.add(bankOffice);
         this.countOffice++;
     }
 

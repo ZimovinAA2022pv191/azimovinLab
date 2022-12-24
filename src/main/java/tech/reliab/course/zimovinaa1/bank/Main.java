@@ -5,6 +5,7 @@ import tech.reliab.course.zimovinaa1.bank.exception.*;
 import tech.reliab.course.zimovinaa1.bank.service.*;
 import tech.reliab.course.zimovinaa1.bank.service.impl.*;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -32,7 +33,7 @@ public class Main {
             offices[j] = bankOfficeImpl.createOffice(bank, j + 1, "Tinkoff #" + j + " office",
                     "Белгород, ул.Костюкова д.43", "Работает", true, true, true,
                     true, 120000.0);
-            bankImpl.addOfficeBank(bank, offices[j].getId(), offices[j]);
+            bankImpl.addOfficeBank(bank, offices[j]);
             for (int emp = 0; emp < empCount; emp++) {
                 employees[emp] = empImpl.createEmployee(bank, offices[j], emp + 1, "Andrey", "Zimovin",
                         "Alexandrovich", "02-10-2001", "Admin", true, true, 20000.0);
@@ -48,7 +49,7 @@ public class Main {
                 users[user] = userImpl.createUser(ran.nextInt(), "Andrey", "Zimovin", "Alexandrovich",
                         "02-10-2001", "БГТУ им. В.Г. Шухова");
                 for (int acc = 0; acc < 2; acc++) {
-                    paymentAccounts[acc] = paymentImpl.createPayAcc(bank, users[user], 40012 + acc);
+                    paymentAccounts[acc] = paymentImpl.createPayAcc(bank, users[user], users[user].getId());
                     userImpl.addPaymentAcc(paymentAccounts[acc].getIdPayAcc(), paymentAccounts[acc], users[user]);
 
                     creditAccounts[acc] = creditImpl.createCreditAcc(bank, users[user], employees[acc], paymentAccounts[acc], 1003 + acc,
@@ -79,19 +80,19 @@ public class Main {
         PaymentAccount payment = new PaymentAccount();
         User user = userImpl.createUser(ran.nextInt(), "Михаил", "Ломоносов", "Васильевич",
                 "12-10-2007", "БГТУ им. В.Г. Шухова");
-        payment = paymentImpl.createPayAcc(bank[0], user, 3001);
+        payment = paymentImpl.createPayAcc(bank[0], user, user.getId());
         user = userImpl.createUser(ran.nextInt(), "Александр", "Пушкин", "Петрович",
                 "01-01-2005", "БГТУ им. В.Г. Шухова");
-        payment = paymentImpl.createPayAcc(bank[0], user, 3002);
+        payment = paymentImpl.createPayAcc(bank[0], user, user.getId());
         user = userImpl.createUser(ran.nextInt(), "Алессандро", "Петручиоли", "Клоки",
                 "25-10-2002", "БГТУ им. В.Г. Шухова");
-        payment = paymentImpl.createPayAcc(bank[0], user, 3003);
+        payment = paymentImpl.createPayAcc(bank[0], user, user.getId());
         user = userImpl.createUser(ran.nextInt(), "Иван", "Иванович", "Иванов",
                 "11-12-2003", "БГТУ им. В.Г. Шухова");
-        payment = paymentImpl.createPayAcc(bank[0], user, 3004);
+        payment = paymentImpl.createPayAcc(bank[0], user, user.getId());
         user = userImpl.createUser(ran.nextInt(), "Хайп", "Хайповски", "Хайпович",
                 "03-11-2001", "БГТУ им. В.Г. Шухова");
-        payment = paymentImpl.createPayAcc(bank[0], user, 3005);
+        payment = paymentImpl.createPayAcc(bank[0], user, user.getId());
 
         userImpl.addPaymentAcc(payment.getIdPayAcc(), payment, user);
 
@@ -215,7 +216,7 @@ public class Main {
                         date, workPlace, salary);
                 payment = paymentImpl.createPayAcc(chooseBank, newUser, ran.nextInt());
                 userImpl.addPaymentAcc(payment.getIdPayAcc(), payment, user);
-                chooseBank.addUserAcc(user.getUserId(), user);
+                chooseBank.addUserAcc(user);
                 System.out.println("Регистрация успешно завершена!");
             }
             try {
@@ -266,11 +267,48 @@ public class Main {
         }
 
     }
-    public static void main(String[] args) {
-        ArrayList<User> userList = new ArrayList<>();
+
+    static void export_to_txt(){
+        BankImpl bankService = new BankImpl();
         ArrayList<Bank> banks = new ArrayList<>();
+        UserService userImpl = new UserImpl();
+        CrediteAccountService creditImpl = new CrediteAccountImpl();
+        PaymentAccountService paymentImpl = new PaymentAccountImpl();
+        EmployeeService empImpl = new EmployeeImpl();
+        BankOfficeService bankOfficeImpl = new BankOfficeImpl();
+        Bank bank = InitorSystem(100, "Test bank", 5, 5, 5, 5, 10.2);
+        BankOffice offices = bankOfficeImpl.createOffice(bank, 20, "Tinkoff #" + " office",
+                "Белгород, ул.Костюкова д.43", "Работает", true, true, true,
+                true, 120000.0);
+        userImpl.createUser(1, "Andrey", "Zimovin", "Alexandrovich",
+                "02-10-2001", "BSTU", 10000.0);
+        Employee employees =  empImpl.createEmployee(bank, offices, 22, "Andrey", "Zimovin",
+                "Alexandrovich", "02-10-2001", "Admin", true, true, 20000.0);
 
+        PaymentAccount paymentAccounts = paymentImpl.createPayAcc(bank, userImpl.readUser(), userImpl.readUser().getId());
+        CreditAccount creditAccounts = creditImpl.createCreditAcc(bank, userImpl.readUser(), employees, paymentAccounts,
+                userImpl.readUser().getId(),"19-11-2022", "19-11-2023", 12, 500000.0);
 
+        userImpl.addPaymentAcc(paymentAccounts.getIdPayAcc(), paymentAccounts,  userImpl.readUser());
+        userImpl.addCreditAcc(creditAccounts.getId(), creditAccounts, userImpl.readUser());
+
+        try {
+            userImpl.saveToFile("file.txt", bank);
+            System.out.println("Платёжные счета до записи в файл:");
+            System.out.println(userImpl.getPaymentAcc());
+            System.out.println("\nКредитные счета до записи в файл:");
+            System.out.println(userImpl.readUser().getCreditAccs());
+            userImpl.updateFromFile("file.txt");
+            System.out.println("\n\n\nПлатёжные счета после обновления из файла:");
+            System.out.println(userImpl.getPaymentAcc());
+            System.out.println("\nКредитные счета после обновления из файла:");
+            System.out.println(userImpl.getCreditAcc());
+        } catch (IOException e) {
+            System.out.println("Ошибка файла: " + e);
+        }
+    }
+    public static void main(String[] args) {
+        export_to_txt();
     }
 
 

@@ -10,7 +10,7 @@ public class PaymentAccountImpl implements PaymentAccountService {
     private PaymentAccount payAcc;
 
     @Override
-    public PaymentAccount createPayAcc(Bank bank, User user, Integer id) {
+    public PaymentAccount createPayAcc(Bank bank, User user, int id) {
         payAcc = new PaymentAccount(bank, user, id);
         return payAcc;
     }
@@ -31,4 +31,6 @@ public class PaymentAccountImpl implements PaymentAccountService {
             this.payAcc = null;
         }
     }
+
+
 }

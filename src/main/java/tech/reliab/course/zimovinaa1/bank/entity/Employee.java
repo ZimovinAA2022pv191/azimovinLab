@@ -71,7 +71,7 @@ public class Employee {
         this.bankOffice = bankOffice;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
