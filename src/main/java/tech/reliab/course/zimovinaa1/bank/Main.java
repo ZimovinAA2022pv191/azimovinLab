@@ -6,9 +6,7 @@ import tech.reliab.course.zimovinaa1.bank.service.*;
 import tech.reliab.course.zimovinaa1.bank.service.impl.*;
 
 import java.text.DecimalFormat;
-import java.util.Map;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Main {
@@ -62,7 +60,7 @@ public class Main {
         return bank;
     }
 
-    public static void main(String[] args) {
+    static void lab3() {
         Random ran = new Random();
         Bank bank1 = InitorSystem(103, "VTB", 10, 100, 221, 500, 8.4);
         Bank bank2 = InitorSystem(103, "OPEN BANK", 7, 44, 100, 100, 8.9);
@@ -130,12 +128,12 @@ public class Main {
             double money = console.nextDouble();
             System.out.println("Укажите срок кредита (кол-во месяцев):");
             int kDays = console.nextInt();
-            Map<Integer, BankOffice> officeMap = chooseBank.getOffices();
+            ArrayList<BankOffice> officeList = chooseBank.getOffices();
             BankOffice trueOffice = new BankOffice();
             boolean officeCheck = true;
             int exceptionVal = 0;
-            for (int i = 0; i < officeMap.size() && officeCheck; i++) {
-                BankOffice tmp = officeMap.get(i + 1);
+            for (int i = 0; i < officeList.size() && officeCheck; i++) {
+                BankOffice tmp = officeList.get(i + 1);
                 if (tmp.getStatus() == "Работает") {
                     if (tmp.getCanTakeCredit()) {
                         if (tmp.getMoney() >= money) {
@@ -186,7 +184,7 @@ public class Main {
             } catch (EmployeeException e) {
                 System.out.println('\n' + e.getMessage());
             }
-            Map<Integer, User> userMap = chooseBank.getUserAccounts();
+            ArrayList<User> userMap = chooseBank.getUserAccounts();
             officeCheck = false;
             String name, last, mid;
 
@@ -195,18 +193,20 @@ public class Main {
             name = "Михаил";
             //System.out.print("Ввидет фамилию:");
             //last = console.nextLine();
-            last="Ломоносов";
+            last = "Ломоносов";
             //System.out.print("Введите отчество:");
             //mid = console.nextLine();
-            mid="Васильевич";
-            for (Map.Entry<Integer, User> u : userMap.entrySet()) {
-                User tmp = u.getValue();
-                if (tmp.getLastName() == last && tmp.getFirstName() == name && tmp.getPatronymic() == mid) {
+            mid = "Васильевич";
+            for (User value : userMap) {
+                if (Objects.equals(value.getLastName(), last) &&
+                        Objects.equals(value.getFirstName(), name) &&
+                        Objects.equals(value.getPatronymic(), mid)) {
                     officeCheck = true;
+                    break;
                 }
             }
             if (!officeCheck) {
-                System.out.println("\n"+"Запуск формы добавления нового клиента банка...");
+                System.out.println("\n" + "Запуск формы добавления нового клиента банка...");
                 //System.out.println("Введите место работы, заработной платы, дату рождения. Через ENTER");
                 String workPlace = "ОАО БелГаууоа";
                 double salary = 12000.0;
@@ -235,31 +235,29 @@ public class Main {
                         officeCheck = false;
                         atm = tmp;
                         exceptionVal = 0;
-                    }
-                    else{
-                        exceptionVal= 1;
+                    } else {
+                        exceptionVal = 1;
                     }
                 } else {
                     exceptionVal = 2;
                 }
             }
             try {
-                if (exceptionVal==1) {
+                if (exceptionVal == 1) {
                     throw new AtmMoneyExceptions("Выберите другой офис. Недостаточно денег!");
                 }
-                if (exceptionVal==2){
+                if (exceptionVal == 2) {
                     throw new AtmWorkException("Выберите другой банкомат. Этот не работает");
                 }
-            }catch (AtmMoneyExceptions e) {
+            } catch (AtmMoneyExceptions e) {
+                System.out.println("\n" + e.getMessage());
+            } catch (AtmWorkException e) {
                 System.out.println("\n" + e.getMessage());
             }
-            catch(AtmWorkException e){
-                System.out.println("\n" + e.getMessage());
-            }
-            double mounthPay =(money/chooseBank.getPercentage())+money/kDays;
-            DecimalFormat dF = new DecimalFormat( "#.###" );
-            System.out.format("\nЗаявка на кредит одобрена\n"+"Сумма кредита: "+money+"" +
-                    "\nЕжемесячный платеж:"+ dF.format(mounthPay)+"\n");
+            double mounthPay = (money / chooseBank.getPercentage()) + money / kDays;
+            DecimalFormat dF = new DecimalFormat("#.###");
+            System.out.format("\nЗаявка на кредит одобрена\n" + "Сумма кредита: " + money + "" +
+                    "\nЕжемесячный платеж:" + dF.format(mounthPay) + "\n");
             System.out.println("\nВыдаем деньги...");
             double getMoney = atm.getMoney();
             atm.setMoney(atm.getMoney() - money);
@@ -268,5 +266,13 @@ public class Main {
         }
 
     }
+    public static void main(String[] args) {
+        ArrayList<User> userList = new ArrayList<>();
+        ArrayList<Bank> banks = new ArrayList<>();
+
+
+    }
+
+
 }
 

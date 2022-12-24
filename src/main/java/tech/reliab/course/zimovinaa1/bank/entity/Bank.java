@@ -1,10 +1,7 @@
 package tech.reliab.course.zimovinaa1.bank.entity;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class Bank {
     private String name;             //название
@@ -17,8 +14,8 @@ public class Bank {
     private Double money;              //кол-во денег не больше 1 000 000
     private Double percentage;         //процентная ставка <=20%
 
-    private final Map<Integer, BankOffice> officeMap = new HashMap<>();
-    private final Map<Integer, User> userMap = new HashMap<>();
+    private ArrayList<BankOffice> officeList;
+    private ArrayList<User> userList;
 
 
     public Bank(String name, Integer id, Double percent) {
@@ -32,6 +29,9 @@ public class Bank {
         this.setRate(rand.nextInt(0, 100));
         this.setMoney(rand.nextDouble(0, 1000000));
         this.setPercentage(percent);
+
+        this.userList = new ArrayList<>();
+        this.officeList = new ArrayList<>();
     }
     public Bank(){}
     public String getName() {
@@ -107,38 +107,28 @@ public class Bank {
     }
 
     public void addUserAcc(int id, User user){
-        this.userMap.put(id, user);
+        this.userList.set(id, user);
     }
 
     public void addOfficeBank(int id, BankOffice bankOffice){
-        this.officeMap.put(id, bankOffice);
+        this.officeList.set(id, bankOffice);
         this.countOffice++;
     }
 
-
-    public void delUserAcc(int id){
-        this.userMap.remove(id);
-    }
-
-    public void delOfficeBank(int id){
-        this.officeMap.remove(id);
-        this.countOffice--;
-    }
-
     public BankOffice getBankOffice(int id) {
-        return this.officeMap.get(id);
+        return this.officeList.get(id);
     }
 
     public User getUserAcc(int id) {
-        return this.userMap.get(id);
+        return this.userList.get(id);
     }
 
-    public Map<Integer, BankOffice> getOffices() {
-        return this.officeMap;
+    public ArrayList<BankOffice> getOffices() {
+        return this.officeList;
     }
 
-    public Map<Integer, User> getUserAccounts() {
-        return this.userMap;
+    public ArrayList<User> getUserAccounts() {
+        return this.userList;
     }
 
     @Override
@@ -153,15 +143,6 @@ public class Bank {
                 ", rate=" + rate +
                 ", money=" + money +
                 ", percentage=" + percentage + "\n";
-//        for (Map.Entry<Integer, BankOffice> office : this.officeMap.entrySet()) {
-//            BankOffice bankValue = office.getValue();
-//            info += bankValue + "\n";
-//        }
-//        for (Map.Entry<Integer, User> userAcc : this.userMap.entrySet()) {
-//            User userValue = userAcc.getValue();
-//            info +="\n"+ userValue + "\n";
-//        }
-//        info += "}";
         return info;
     }
 }

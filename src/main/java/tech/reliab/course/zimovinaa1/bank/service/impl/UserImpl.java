@@ -42,6 +42,7 @@ public class UserImpl implements UserService {
     }
 
 
+
     @Override
     public void delete(User user) {
         if (this.user == user) {

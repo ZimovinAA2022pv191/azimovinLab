@@ -14,8 +14,8 @@ public class User {
     private Double monthSalary;
     private int creditRating;
 
-    private Map<Integer, PaymentAccount> paymentAccMap = new HashMap<>();
-    private Map<Integer, CreditAccount> crediteAccMap = new HashMap<>();
+    private ArrayList<PaymentAccount> paymentAccMap = new ArrayList<>();
+    private ArrayList<CreditAccount> crediteAccMap = new ArrayList<>();
 
     public User(int id, String firstName, String lastName, String patronymic, String dateBirth, String workPlace) {
         this.setUserId(id);
@@ -109,11 +109,11 @@ public class User {
         Bank bank = payAcc.getBank();
         bank.setCountClient(bank.getCountClient() + 1);
         bank.addUserAcc(id, user);
-        this.paymentAccMap.put(id, payAcc);
+        this.paymentAccMap.set(id, payAcc);
     }
 
     public void addCreditAcc(int id, CreditAccount creditAcc) {
-        this.crediteAccMap.put(id, creditAcc);
+        this.crediteAccMap.set(id, creditAcc);
     }
 
     public void delPaymentAcc(int id) {
@@ -124,11 +124,11 @@ public class User {
         this.crediteAccMap.remove(id);
     }
 
-    public Map<Integer, PaymentAccount> getPaymentAccs() {
+    public ArrayList<PaymentAccount> getPaymentAccs() {
         return this.paymentAccMap;
     }
 
-    public Map<Integer, CreditAccount> getCreditAccs() {
+    public ArrayList<CreditAccount> getCreditAccs() {
         return this.crediteAccMap;
     }
 
@@ -144,17 +144,6 @@ public class User {
                 ", monthSalary=" + monthSalary +
                 ", creditRating=" + creditRating +
                 "\n";
-
-//        for (Map.Entry<Integer, PaymentAccount> payAcc : this.paymentAccMap.entrySet()) {
-//            PaymentAccount payValue = payAcc.getValue();
-//            info += payValue + "\n";
-//        }
-//
-//        for (Map.Entry<Integer, CreditAccount> creditAcc : this.crediteAccMap.entrySet()) {
-//            CreditAccount creditValue = creditAcc.getValue();
-//            info += creditValue + "\n";
-//        }
-//        info += "\n}";
         return info;
     }
 }
