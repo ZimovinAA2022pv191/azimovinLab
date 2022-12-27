@@ -28,5 +28,5 @@ public interface UserService {
 
     void saveToFile(String fileName, Bank bank) throws IOException;
 
-    void updateFromFile(String fileName) throws IOException;
+    void updateFromFile(String fileName, Bank bank) throws IOException;
 }

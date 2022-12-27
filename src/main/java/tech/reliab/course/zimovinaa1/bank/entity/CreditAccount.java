@@ -22,7 +22,7 @@ public class CreditAccount extends BankAccount {
     private Integer countMonth;
     private Double creditSum;
     private Integer interestRate;
-    private Double monthPay;
+    private double monthPay;
     private String employeeName;
     private int paymentAccountId;
 
@@ -135,7 +135,7 @@ public class CreditAccount extends BankAccount {
         return monthPay;
     }
 
-    public void setMonthPay(Double monthPay) {
+    public void setMonthPay(double monthPay) {
         this.monthPay = monthPay;
     }
 
@@ -177,9 +177,10 @@ public class CreditAccount extends BankAccount {
     }
 
 
-    public void updateFromJsonClass(JsonCreditAcc jsonCreditAcc) {
+    public void updateFromJsonClass(JsonCreditAcc jsonCreditAcc, Bank bank2) {
         this.setId(jsonCreditAcc.getId());
-        this.getBank().setId(jsonCreditAcc.getBankID());
+        this.bank = bank2;
+        this.setBankName();
         this.getUser().setId(jsonCreditAcc.getUserID());
         this.getPaymentAccount().setIdPayAcc(jsonCreditAcc.getPayAccID());
         this.getEmployee().setId(jsonCreditAcc.getEmployeeID());

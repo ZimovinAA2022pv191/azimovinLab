@@ -103,27 +103,29 @@ public class UserImpl implements UserService {
         return jsonCredit;
     }
 
-    private void makeCreditAccFromJson(ArrayList<JsonCreditAcc> jsonCreditAcc) {
+    private void makeCreditAccFromJson(ArrayList<JsonCreditAcc> jsonCreditAcc, Bank bank) {
         ArrayList<CreditAccount> creditAccounts = this.user.getCreditAccs();
         if (!jsonCreditAcc.isEmpty()) {
             for (int i = 0; i < creditAccounts.size(); i++) {
                 for (int j = 0; j < creditAccounts.size(); j++) {
                     if (Objects.equals(creditAccounts.get(i).getId(), jsonCreditAcc.get(j).getId())) {
-                        creditAccounts.get(i).updateFromJsonClass(jsonCreditAcc.get(j));
+                        creditAccounts.get(i).updateFromJsonClass(jsonCreditAcc.get(j), bank);
                     }
                 }
             }
+
             this.user.setCreditAccs(creditAccounts);
+            //System.out.println(getCreditAcc());
         }
     }
 
-    private void makePayAccFromJson(ArrayList<JsonPayAcc> jsonPayAcc) {
+    private void makePayAccFromJson(ArrayList<JsonPayAcc> jsonPayAcc, Bank bank2) {
         ArrayList<PaymentAccount> payAcc = this.user.getPaymentAccs();
         if (!jsonPayAcc.isEmpty()) {
             for (int i = 0; i < payAcc.size(); i++) {
                 for (int j = 0; j < payAcc.size(); j++) {
                     if (Objects.equals(payAcc.get(i).getIdPayAcc(), jsonPayAcc.get(j).getId())) {
-                        payAcc.get(i).updateFromJsonClass(jsonPayAcc.get(j));
+                        payAcc.get(i).updateFromJsonClass(jsonPayAcc.get(j), bank2);
                     }
                 }
             }
@@ -132,7 +134,7 @@ public class UserImpl implements UserService {
     }
 
     @Override
-    public void updateFromFile(String fileName) throws IOException {
+    public void updateFromFile(String fileName, Bank bank) throws IOException {
         File file = new File(fileName);
         FileReader fr = new FileReader(file);
         BufferedReader reader = new BufferedReader(fr);
@@ -143,9 +145,9 @@ public class UserImpl implements UserService {
                 if (line.charAt(0) == '[') {
                     if (first) {
                         first = false;
-                        this.makePayAccFromJson(gson.fromJson(line, payAccArrType));
+                        this.makePayAccFromJson(gson.fromJson(line, payAccArrType), bank);
                     } else {
-                        this.makeCreditAccFromJson(gson.fromJson(line, credAccArrType));
+                        this.makeCreditAccFromJson(gson.fromJson(line, credAccArrType), bank);
                     }
                 }
             }

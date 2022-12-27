@@ -84,9 +84,10 @@ public class PaymentAccount{
                 '}';
     }
 
-    public void updateFromJsonClass(JsonPayAcc jsonPayAcc) {
+    public void updateFromJsonClass(JsonPayAcc jsonPayAcc, Bank bank2) {
         this.setIdPayAcc(jsonPayAcc.getId());
-        this.getBank().setId(jsonPayAcc.getBankID());
+        this.bank=bank2;
+        this.setBankName();
         this.getUser().setId(jsonPayAcc.getUserID());
         this.setMoney(jsonPayAcc.getBalance());
     }

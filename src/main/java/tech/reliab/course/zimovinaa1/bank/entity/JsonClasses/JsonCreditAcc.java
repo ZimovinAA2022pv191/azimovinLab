@@ -25,7 +25,7 @@ public class JsonCreditAcc {
         this.endDate = creditAcc.getEndDate();
         this.countMonth = creditAcc.getCountMonth();
         this.sum = creditAcc.getCreditSum();
-        this.monthlyPay = creditAcc.getCountMonth();
+        this.monthlyPay = creditAcc.getMonthPay();
         this.interestRate = creditAcc.getInterestRate();
     }
 
@@ -65,7 +65,7 @@ public class JsonCreditAcc {
 
     public void setSum(double sum) {this.sum = sum;}
 
-    public Double getMonthlyAmount() {return this.monthlyPay;}
+    public double getMonthlyAmount() {return this.monthlyPay;}
 
     public void setMonthlyPay(double monthlyPay) {this.monthlyPay = monthlyPay;}
 

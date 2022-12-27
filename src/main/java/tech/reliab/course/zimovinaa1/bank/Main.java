@@ -291,6 +291,7 @@ public class Main {
 
         userImpl.addPaymentAcc(paymentAccounts.getIdPayAcc(), paymentAccounts,  userImpl.readUser());
         userImpl.addCreditAcc(creditAccounts.getId(), creditAccounts, userImpl.readUser());
+        Bank bank2 = InitorSystem(110, "Test bank2", 5, 5, 5, 5, 10.2);
 
         try {
             userImpl.saveToFile("file.txt", bank);
@@ -298,8 +299,8 @@ public class Main {
             System.out.println(userImpl.getPaymentAcc());
             System.out.println("\nКредитные счета до записи в файл:");
             System.out.println(userImpl.readUser().getCreditAccs());
-            userImpl.updateFromFile("file.txt");
-            System.out.println("\n\n\nПлатёжные счета после обновления из файла:");
+            userImpl.updateFromFile("file.txt", bank2);
+            System.out.println("\nПлатёжные счета после обновления из файла:");
             System.out.println(userImpl.getPaymentAcc());
             System.out.println("\nКредитные счета после обновления из файла:");
             System.out.println(userImpl.getCreditAcc());
